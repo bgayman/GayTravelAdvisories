@@ -11,26 +11,60 @@ import XCTest
 
 class Gay_Travel_AdvisoriesTests: XCTestCase {
     
+    var countriesManager: CountriesManager?
+    var travelAdvisory: TravelAdvisory?
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        countriesManager = CountriesManager.loadTestData()
+        travelAdvisory = TravelAdvisory.loadTestData()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testCountriesLoadingFromServer() {
+        let serverExpectation = expectation(description: "Loading from server.")
+        CountriesManager.shared.getAdvisoryRegions { (result) in
+            switch result {
+            case .error(let error):
+                XCTFail("Response was error: \(error.localizedDescription)")
+            case .success:
+                serverExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 60.0) { (error) in
+            print(error?.localizedDescription ?? "")
         }
     }
     
+    func testCountriesParsing() {
+        XCTAssertNotNil(countriesManager, "countriesManager must be non nil.")
+        XCTAssertEqual(countriesManager?.regions?.count, 5, "countriesManager must have 5 regions")
+    }
+    
+    func testTravelAdvisoryLoadingFromServer() {
+        let serverExpectation = expectation(description: "Loading from server.")
+        let country = countriesManager?.regions?.first?.countries.first
+        XCTAssertNotNil(country, "country must be non nil.")
+        TravelAdvisoryClient.getTravelAdvisory(for: country!) { (result) in
+            switch result {
+            case .error(let error):
+                XCTFail("Response was error: \(error.localizedDescription)")
+            case .success:
+                serverExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 60.0) { (error) in
+            print(error?.localizedDescription ?? "")
+        }
+    }
+    
+    func testTravelAdvisoryParsing() {
+        XCTAssertNotNil(travelAdvisory, "travelAdvisory must be non nil.")
+        XCTAssertEqual(travelAdvisory?.fine.minAmount, 500, "travelAdvisory min fine amount must be 500")
+    }
 }
