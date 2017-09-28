@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CDD014031F7C7D1200DD1940 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD014021F7C7D1200DD1940 /* AppDelegate.swift */; };
+		CDD014051F7C7D1200DD1940 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD014041F7C7D1200DD1940 /* FirstViewController.swift */; };
+		CDD014071F7C7D1200DD1940 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD014061F7C7D1200DD1940 /* SecondViewController.swift */; };
+		CDD0140A1F7C7D1200DD1940 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD014081F7C7D1200DD1940 /* Main.storyboard */; };
+		CDD0140C1F7C7D1200DD1940 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDD0140B1F7C7D1200DD1940 /* Assets.xcassets */; };
+		CDD0140F1F7C7D1200DD1940 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD0140D1F7C7D1200DD1940 /* LaunchScreen.storyboard */; };
+		CDD0141A1F7C7D1200DD1940 /* Gay_Travel_AdvisoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD014191F7C7D1200DD1940 /* Gay_Travel_AdvisoriesTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CDD014161F7C7D1200DD1940 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDD013F71F7C7D1200DD1940 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CDD013FE1F7C7D1200DD1940;
+			remoteInfo = "Gay Travel Advisories";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CDD013FF1F7C7D1200DD1940 /* Gay Travel Advisories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gay Travel Advisories.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDD014021F7C7D1200DD1940 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CDD014041F7C7D1200DD1940 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		CDD014061F7C7D1200DD1940 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		CDD014091F7C7D1200DD1940 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CDD0140B1F7C7D1200DD1940 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CDD0140E1F7C7D1200DD1940 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CDD014101F7C7D1200DD1940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDD014151F7C7D1200DD1940 /* Gay Travel AdvisoriesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gay Travel AdvisoriesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDD014191F7C7D1200DD1940 /* Gay_Travel_AdvisoriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gay_Travel_AdvisoriesTests.swift; sourceTree = "<group>"; };
+		CDD0141B1F7C7D1200DD1940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CDD013FC1F7C7D1200DD1940 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDD014121F7C7D1200DD1940 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CDD013F61F7C7D1200DD1940 = {
+			isa = PBXGroup;
+			children = (
+				CDD014011F7C7D1200DD1940 /* Gay Travel Advisories */,
+				CDD014181F7C7D1200DD1940 /* Gay Travel AdvisoriesTests */,
+				CDD014001F7C7D1200DD1940 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CDD014001F7C7D1200DD1940 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CDD013FF1F7C7D1200DD1940 /* Gay Travel Advisories.app */,
+				CDD014151F7C7D1200DD1940 /* Gay Travel AdvisoriesTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CDD014011F7C7D1200DD1940 /* Gay Travel Advisories */ = {
+			isa = PBXGroup;
+			children = (
+				CDD014021F7C7D1200DD1940 /* AppDelegate.swift */,
+				CDD014041F7C7D1200DD1940 /* FirstViewController.swift */,
+				CDD014061F7C7D1200DD1940 /* SecondViewController.swift */,
+				CDD014081F7C7D1200DD1940 /* Main.storyboard */,
+				CDD0140B1F7C7D1200DD1940 /* Assets.xcassets */,
+				CDD0140D1F7C7D1200DD1940 /* LaunchScreen.storyboard */,
+				CDD014101F7C7D1200DD1940 /* Info.plist */,
+			);
+			path = "Gay Travel Advisories";
+			sourceTree = "<group>";
+		};
+		CDD014181F7C7D1200DD1940 /* Gay Travel AdvisoriesTests */ = {
+			isa = PBXGroup;
+			children = (
+				CDD014191F7C7D1200DD1940 /* Gay_Travel_AdvisoriesTests.swift */,
+				CDD0141B1F7C7D1200DD1940 /* Info.plist */,
+			);
+			path = "Gay Travel AdvisoriesTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CDD013FE1F7C7D1200DD1940 /* Gay Travel Advisories */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDD0141E1F7C7D1200DD1940 /* Build configuration list for PBXNativeTarget "Gay Travel Advisories" */;
+			buildPhases = (
+				CDD013FB1F7C7D1200DD1940 /* Sources */,
+				CDD013FC1F7C7D1200DD1940 /* Frameworks */,
+				CDD013FD1F7C7D1200DD1940 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Gay Travel Advisories";
+			productName = "Gay Travel Advisories";
+			productReference = CDD013FF1F7C7D1200DD1940 /* Gay Travel Advisories.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CDD014141F7C7D1200DD1940 /* Gay Travel AdvisoriesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDD014211F7C7D1200DD1940 /* Build configuration list for PBXNativeTarget "Gay Travel AdvisoriesTests" */;
+			buildPhases = (
+				CDD014111F7C7D1200DD1940 /* Sources */,
+				CDD014121F7C7D1200DD1940 /* Frameworks */,
+				CDD014131F7C7D1200DD1940 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CDD014171F7C7D1200DD1940 /* PBXTargetDependency */,
+			);
+			name = "Gay Travel AdvisoriesTests";
+			productName = "Gay Travel AdvisoriesTests";
+			productReference = CDD014151F7C7D1200DD1940 /* Gay Travel AdvisoriesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CDD013F71F7C7D1200DD1940 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Brad G.";
+				TargetAttributes = {
+					CDD013FE1F7C7D1200DD1940 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 8DDUQH2RUD;
+						ProvisioningStyle = Automatic;
+					};
+					CDD014141F7C7D1200DD1940 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 8DDUQH2RUD;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CDD013FE1F7C7D1200DD1940;
+					};
+				};
+			};
+			buildConfigurationList = CDD013FA1F7C7D1200DD1940 /* Build configuration list for PBXProject "Gay Travel Advisories" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CDD013F61F7C7D1200DD1940;
+			productRefGroup = CDD014001F7C7D1200DD1940 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CDD013FE1F7C7D1200DD1940 /* Gay Travel Advisories */,
+				CDD014141F7C7D1200DD1940 /* Gay Travel AdvisoriesTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CDD013FD1F7C7D1200DD1940 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDD0140F1F7C7D1200DD1940 /* LaunchScreen.storyboard in Resources */,
+				CDD0140C1F7C7D1200DD1940 /* Assets.xcassets in Resources */,
+				CDD0140A1F7C7D1200DD1940 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDD014131F7C7D1200DD1940 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CDD013FB1F7C7D1200DD1940 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDD014071F7C7D1200DD1940 /* SecondViewController.swift in Sources */,
+				CDD014031F7C7D1200DD1940 /* AppDelegate.swift in Sources */,
+				CDD014051F7C7D1200DD1940 /* FirstViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDD014111F7C7D1200DD1940 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDD0141A1F7C7D1200DD1940 /* Gay_Travel_AdvisoriesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CDD014171F7C7D1200DD1940 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CDD013FE1F7C7D1200DD1940 /* Gay Travel Advisories */;
+			targetProxy = CDD014161F7C7D1200DD1940 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CDD014081F7C7D1200DD1940 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDD014091F7C7D1200DD1940 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CDD0140D1F7C7D1200DD1940 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDD0140E1F7C7D1200DD1940 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CDD0141C1F7C7D1200DD1940 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CDD0141D1F7C7D1200DD1940 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CDD0141F1F7C7D1200DD1940 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8DDUQH2RUD;
+				INFOPLIST_FILE = "Gay Travel Advisories/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bradgayman.Gay-Travel-Advisories";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		CDD014201F7C7D1200DD1940 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8DDUQH2RUD;
+				INFOPLIST_FILE = "Gay Travel Advisories/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bradgayman.Gay-Travel-Advisories";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		CDD014221F7C7D1200DD1940 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8DDUQH2RUD;
+				INFOPLIST_FILE = "Gay Travel AdvisoriesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bradgayman.Gay-Travel-AdvisoriesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gay Travel Advisories.app/Gay Travel Advisories";
+			};
+			name = Debug;
+		};
+		CDD014231F7C7D1200DD1940 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8DDUQH2RUD;
+				INFOPLIST_FILE = "Gay Travel AdvisoriesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "bradgayman.Gay-Travel-AdvisoriesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gay Travel Advisories.app/Gay Travel Advisories";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CDD013FA1F7C7D1200DD1940 /* Build configuration list for PBXProject "Gay Travel Advisories" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDD0141C1F7C7D1200DD1940 /* Debug */,
+				CDD0141D1F7C7D1200DD1940 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CDD0141E1F7C7D1200DD1940 /* Build configuration list for PBXNativeTarget "Gay Travel Advisories" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDD0141F1F7C7D1200DD1940 /* Debug */,
+				CDD014201F7C7D1200DD1940 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CDD014211F7C7D1200DD1940 /* Build configuration list for PBXNativeTarget "Gay Travel AdvisoriesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDD014221F7C7D1200DD1940 /* Debug */,
+				CDD014231F7C7D1200DD1940 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CDD013F71F7C7D1200DD1940 /* Project object */;
+}
