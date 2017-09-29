@@ -80,7 +80,7 @@ class AdvisoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let view = view as? UITableViewHeaderFooterView else { return }
-        view.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         view.textLabel?.textColor = UIColor.app_purple
     }
 }

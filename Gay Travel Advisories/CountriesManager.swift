@@ -23,8 +23,10 @@ class CountriesManager {
     // MARK: - Properties
     static var shared = CountriesManager()
     
-    var regions: [Region]?
-    var lastUpdated: Date?
+    private(set) var regions: [Region]?
+    private(set) var lastUpdated: Date?
+    
+    private(set) var allAbbreviations: [String]  = []
     
     // MARK: - Networking
     func getAdvisoryRegions(completion: ((Result<[Region]>) -> Void)? = nil) {
@@ -55,6 +57,7 @@ class CountriesManager {
             lastUpdated = Date(timeIntervalSince1970: dateValue)
         }
         regions = dictionary.flatMap { $0 as? (String, [String]) }.map(Region.init)
+        allAbbreviations = regions?.flatMap { $0.countries.map { $0.abbreviation } } ?? []
     }
 }
 

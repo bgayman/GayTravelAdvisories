@@ -36,6 +36,22 @@
 		CDD014431F7CAA2B00DD1940 /* TravelAdvisoryClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD0143E1F7CA5A300DD1940 /* TravelAdvisoryClient.swift */; };
 		CDD014451F7CAA4C00DD1940 /* TravelAdvisory+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD014441F7CAA4C00DD1940 /* TravelAdvisory+TestData.swift */; };
 		CDD014481F7D1D8200DD1940 /* ISOCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD014471F7D1D8200DD1940 /* ISOCountry.swift */; };
+		CDD54D611F7E648000D39D33 /* CountryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD54D5F1F7E648000D39D33 /* CountryPickerViewController.swift */; };
+		CDD54D621F7E648000D39D33 /* CountryPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD54D601F7E648000D39D33 /* CountryPickerViewController.xib */; };
+		CDDB27D11F7DC7E80077D603 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27D01F7DC7E80077D603 /* FileStorage.swift */; };
+		CDDB27D31F7DC82B0077D603 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27D21F7DC82B0077D603 /* Trip.swift */; };
+		CDDB27D51F7DCAC50077D603 /* TripManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27D41F7DCAC50077D603 /* TripManager.swift */; };
+		CDDB27D71F7DD07D0077D603 /* UIFont+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27D61F7DD07D0077D603 /* UIFont+Application.swift */; };
+		CDDB27D91F7DD2A80077D603 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27D81F7DD2A80077D603 /* TripTableViewCell.swift */; };
+		CDDB27DA1F7DD2F40077D603 /* Notifications+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC4E6E1F7DAFCA001BB077 /* Notifications+Application.swift */; };
+		CDDB27DE1F7DD9490077D603 /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27DC1F7DD9490077D603 /* AddTripViewController.swift */; };
+		CDDB27DF1F7DD9490077D603 /* AddTripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB27DD1F7DD9490077D603 /* AddTripViewController.xib */; };
+		CDDB27E11F7DDF860077D603 /* UITableView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27E01F7DDF860077D603 /* UITableView+Animations.swift */; };
+		CDDB27E51F7DE5D50077D603 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27E31F7DE5D50077D603 /* DatePickerViewController.swift */; };
+		CDDB27E61F7DE5D50077D603 /* DatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB27E41F7DE5D50077D603 /* DatePickerViewController.xib */; };
+		CDDB27E81F7DF5100077D603 /* UIView+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27E71F7DF5100077D603 /* UIView+Application.swift */; };
+		CDDB27EF1F7DFC160077D603 /* CountryPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27ED1F7DFC160077D603 /* CountryPickerTableViewCell.swift */; };
+		CDDB27F01F7DFC160077D603 /* CountryPickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB27EE1F7DFC160077D603 /* CountryPickerTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +91,21 @@
 		CDD014401F7CAA2000DD1940 /* TravelAdvisoryTestData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TravelAdvisoryTestData.json; sourceTree = "<group>"; };
 		CDD014441F7CAA4C00DD1940 /* TravelAdvisory+TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TravelAdvisory+TestData.swift"; sourceTree = "<group>"; };
 		CDD014471F7D1D8200DD1940 /* ISOCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISOCountry.swift; sourceTree = "<group>"; };
+		CDD54D5F1F7E648000D39D33 /* CountryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPickerViewController.swift; sourceTree = "<group>"; };
+		CDD54D601F7E648000D39D33 /* CountryPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryPickerViewController.xib; sourceTree = "<group>"; };
+		CDDB27D01F7DC7E80077D603 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
+		CDDB27D21F7DC82B0077D603 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		CDDB27D41F7DCAC50077D603 /* TripManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripManager.swift; sourceTree = "<group>"; };
+		CDDB27D61F7DD07D0077D603 /* UIFont+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Application.swift"; sourceTree = "<group>"; };
+		CDDB27D81F7DD2A80077D603 /* TripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
+		CDDB27DC1F7DD9490077D603 /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
+		CDDB27DD1F7DD9490077D603 /* AddTripViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTripViewController.xib; sourceTree = "<group>"; };
+		CDDB27E01F7DDF860077D603 /* UITableView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Animations.swift"; sourceTree = "<group>"; };
+		CDDB27E31F7DE5D50077D603 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		CDDB27E41F7DE5D50077D603 /* DatePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerViewController.xib; sourceTree = "<group>"; };
+		CDDB27E71F7DF5100077D603 /* UIView+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Application.swift"; sourceTree = "<group>"; };
+		CDDB27ED1F7DFC160077D603 /* CountryPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPickerTableViewCell.swift; sourceTree = "<group>"; };
+		CDDB27EE1F7DFC160077D603 /* CountryPickerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryPickerTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +130,11 @@
 			isa = PBXGroup;
 			children = (
 				CDBC4E641F7DA170001BB077 /* UIColor+Application.swift */,
+				CDDB27D61F7DD07D0077D603 /* UIFont+Application.swift */,
 				CDBC4E6A1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift */,
 				CDBC4E6E1F7DAFCA001BB077 /* Notifications+Application.swift */,
+				CDDB27E01F7DDF860077D603 /* UITableView+Animations.swift */,
+				CDDB27E71F7DF5100077D603 /* UIView+Application.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -109,7 +143,9 @@
 			isa = PBXGroup;
 			children = (
 				CDBC4E671F7DA58F001BB077 /* TripsTableViewController.swift */,
+				CDDB27DB1F7DD5640077D603 /* TripTableViewCells */,
 				CDBC4E6C1F7DACEB001BB077 /* AdvisoriesTableViewController.swift */,
+				CDDB27E21F7DE5A90077D603 /* Trip Modals */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -177,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				CDD014281F7C848E00DD1940 /* CountriesManager.swift */,
+				CDDB27D41F7DCAC50077D603 /* TripManager.swift */,
+				CDDB27D01F7DC7E80077D603 /* FileStorage.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -187,8 +225,40 @@
 				CDD0142A1F7C84F600DD1940 /* Region.swift */,
 				CDD0143C1F7C917F00DD1940 /* TravelAdvisory.swift */,
 				CDD014471F7D1D8200DD1940 /* ISOCountry.swift */,
+				CDDB27D21F7DC82B0077D603 /* Trip.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		CDDB27DB1F7DD5640077D603 /* TripTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				CDDB27D81F7DD2A80077D603 /* TripTableViewCell.swift */,
+			);
+			name = TripTableViewCells;
+			sourceTree = "<group>";
+		};
+		CDDB27E21F7DE5A90077D603 /* Trip Modals */ = {
+			isa = PBXGroup;
+			children = (
+				CDDB27DC1F7DD9490077D603 /* AddTripViewController.swift */,
+				CDDB27DD1F7DD9490077D603 /* AddTripViewController.xib */,
+				CDDB27E31F7DE5D50077D603 /* DatePickerViewController.swift */,
+				CDDB27E41F7DE5D50077D603 /* DatePickerViewController.xib */,
+				CDD54D5F1F7E648000D39D33 /* CountryPickerViewController.swift */,
+				CDD54D601F7E648000D39D33 /* CountryPickerViewController.xib */,
+				CDDB27F11F7DFD040077D603 /* CountryPickerTableViewCells */,
+			);
+			name = "Trip Modals";
+			sourceTree = "<group>";
+		};
+		CDDB27F11F7DFD040077D603 /* CountryPickerTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				CDDB27ED1F7DFC160077D603 /* CountryPickerTableViewCell.swift */,
+				CDDB27EE1F7DFC160077D603 /* CountryPickerTableViewCell.xib */,
+			);
+			name = CountryPickerTableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,8 +346,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDD54D621F7E648000D39D33 /* CountryPickerViewController.xib in Resources */,
 				CDD0140F1F7C7D1200DD1940 /* LaunchScreen.storyboard in Resources */,
+				CDDB27E61F7DE5D50077D603 /* DatePickerViewController.xib in Resources */,
+				CDDB27DF1F7DD9490077D603 /* AddTripViewController.xib in Resources */,
 				CDD0140C1F7C7D1200DD1940 /* Assets.xcassets in Resources */,
+				CDDB27F01F7DFC160077D603 /* CountryPickerTableViewCell.xib in Resources */,
 				CDD0140A1F7C7D1200DD1940 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,16 +376,27 @@
 				CDD014291F7C848E00DD1940 /* CountriesManager.swift in Sources */,
 				CDBC4E651F7DA170001BB077 /* UIColor+Application.swift in Sources */,
 				CDD014481F7D1D8200DD1940 /* ISOCountry.swift in Sources */,
+				CDDB27E51F7DE5D50077D603 /* DatePickerViewController.swift in Sources */,
+				CDDB27D31F7DC82B0077D603 /* Trip.swift in Sources */,
+				CDDB27DE1F7DD9490077D603 /* AddTripViewController.swift in Sources */,
 				CDD014031F7C7D1200DD1940 /* AppDelegate.swift in Sources */,
+				CDDB27D91F7DD2A80077D603 /* TripTableViewCell.swift in Sources */,
 				CDBC4E6D1F7DACEB001BB077 /* AdvisoriesTableViewController.swift in Sources */,
 				CDD0143F1F7CA5A300DD1940 /* TravelAdvisoryClient.swift in Sources */,
 				CDD014251F7C7FF900DD1940 /* NetworkActivityIndicatorManager.swift in Sources */,
 				CDBC4E6B1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift in Sources */,
 				CDD0143D1F7C917F00DD1940 /* TravelAdvisory.swift in Sources */,
 				CDD0142B1F7C84F600DD1940 /* Region.swift in Sources */,
+				CDDB27EF1F7DFC160077D603 /* CountryPickerTableViewCell.swift in Sources */,
+				CDDB27D51F7DCAC50077D603 /* TripManager.swift in Sources */,
+				CDDB27D11F7DC7E80077D603 /* FileStorage.swift in Sources */,
+				CDDB27E11F7DDF860077D603 /* UITableView+Animations.swift in Sources */,
 				CDD014271F7C818600DD1940 /* Webservice.swift in Sources */,
+				CDD54D611F7E648000D39D33 /* CountryPickerViewController.swift in Sources */,
 				CDBC4E681F7DA58F001BB077 /* TripsTableViewController.swift in Sources */,
+				CDDB27E81F7DF5100077D603 /* UIView+Application.swift in Sources */,
 				CDBC4E6F1F7DAFCA001BB077 /* Notifications+Application.swift in Sources */,
+				CDDB27D71F7DD07D0077D603 /* UIFont+Application.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDD014321F7C8C9300DD1940 /* CountriesManager.swift in Sources */,
+				CDDB27DA1F7DD2F40077D603 /* Notifications+Application.swift in Sources */,
 				CDD014361F7C8CD000DD1940 /* CountriesManager+TestData.swift in Sources */,
 				CDD014451F7CAA4C00DD1940 /* TravelAdvisory+TestData.swift in Sources */,
 				CDD014431F7CAA2B00DD1940 /* TravelAdvisoryClient.swift in Sources */,

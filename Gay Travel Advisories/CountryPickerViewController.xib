@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CountryPickerViewController" customModule="Gay_Travel_Advisories" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="eqv-Gi-vQ7" id="fYR-bX-7oa"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXk-mK-mpB">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vzo-lS-xnd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eqv-Gi-vQ7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-1" id="8iO-1w-URb"/>
+                                    <outlet property="delegate" destination="-1" id="f23-hz-BFs"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="eqv-Gi-vQ7" secondAttribute="trailing" id="2dZ-DO-kLr"/>
+                            <constraint firstAttribute="bottom" secondItem="eqv-Gi-vQ7" secondAttribute="bottom" id="HEU-v1-SnU"/>
+                            <constraint firstItem="eqv-Gi-vQ7" firstAttribute="leading" secondItem="vzo-lS-xnd" secondAttribute="leading" id="M4D-1C-2JA"/>
+                            <constraint firstItem="eqv-Gi-vQ7" firstAttribute="top" secondItem="vzo-lS-xnd" secondAttribute="top" id="taR-eZ-u68"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="XXk-mK-mpB" secondAttribute="bottom" id="0Bm-pn-2M6"/>
+                <constraint firstAttribute="trailing" secondItem="XXk-mK-mpB" secondAttribute="trailing" id="73M-ot-AV4"/>
+                <constraint firstItem="XXk-mK-mpB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bLY-jP-FBR"/>
+                <constraint firstItem="XXk-mK-mpB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wqu-Kh-Kmu"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>
