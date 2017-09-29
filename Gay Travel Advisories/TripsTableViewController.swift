@@ -11,7 +11,7 @@ import UIKit
 // MARK: - TripsTableViewController
 class TripsTableViewController: UITableViewController {
 
-    lazy var addBarButtonItem: UIBarButtonItem = {
+    @objc lazy var addBarButtonItem: UIBarButtonItem = {
         let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.didPressAdd(_:)))
         return addBarButtonItem
     }()
@@ -43,12 +43,12 @@ class TripsTableViewController: UITableViewController {
         
         navigationController?.navigationBar.barTintColor = UIColor.black
         navigationController?.navigationBar.tintColor = UIColor.app_orange
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationBar.largeTitleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         }
     }
     
@@ -72,6 +72,8 @@ class TripsTableViewController: UITableViewController {
         guard let indexPath = tableView.indexPathForRow(at: location),
               let cell = tableView.cellForRow(at: indexPath) as? TripTableViewCell,
               let trip = cell.trip else { return  }
+        let advisoryDetailViewController = AdvisoryDetailViewController(country: trip.country)
+        navigationController?.pushViewController(advisoryDetailViewController, animated: true)
     }
 
     // MARK: - UITableViewDataSource / UITableViewDelegate

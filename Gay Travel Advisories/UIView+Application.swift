@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     
-    func shakeNo() {
+    @objc func shakeNo() {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.warning)
         

@@ -10,24 +10,24 @@ import UIKit
 
 class CountryPickerTableViewCell: UITableViewCell {
     
-    var name: String? {
+    @objc var name: String? {
         didSet {
             countryLabel.text = name
         }
     }
     
-    var searchString: String? {
+    @objc var searchString: String? {
         didSet {
             countryLabel.attributedText = attributedSearchText
         }
     }
     
-    var attributedSearchText: NSAttributedString? {
+    @objc var attributedSearchText: NSAttributedString? {
         guard let name = self.name,
               let searchString = self.searchString else { return nil }
         let attribString = NSMutableAttributedString(string: name)
         let range = (name.lowercased() as NSString).range(of: searchString.lowercased())
-        attribString.addAttributes([NSForegroundColorAttributeName: UIColor.app_purple], range: range)
+        attribString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.app_purple], range: range)
         return attribString
     }
 
@@ -35,7 +35,7 @@ class CountryPickerTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        countryLabel.font = UIFont.app_font(style: .body, weight: UIFontWeightMedium)
+        countryLabel.font = UIFont.app_font(style: .body, weight: UIFont.Weight.medium)
         countryLabel.textColor = .white
         backgroundColor = .clear
         contentView.backgroundColor = .clear

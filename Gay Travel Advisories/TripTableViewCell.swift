@@ -25,11 +25,11 @@ class TripTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         destinationLabel.textColor = .white
-        destinationLabel.font = UIFont.app_font(style: .title3, weight: UIFontWeightBold)
+        destinationLabel.font = UIFont.app_font(style: .title3, weight: UIFont.Weight.bold)
         destinationLabel.numberOfLines = 0
         
         datesLabel.textColor = .white
-        datesLabel.font = UIFont.app_font(style: .caption1, weight: UIFontWeightMedium)
+        datesLabel.font = UIFont.app_font(style: .caption1, weight: UIFont.Weight.medium)
         datesLabel.numberOfLines = 0
         
         travelAdvisoryButton.tintColor = .app_pink

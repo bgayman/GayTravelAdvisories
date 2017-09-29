@@ -25,7 +25,7 @@ class CountryPickerViewController: UIViewController {
     
     // MARK: - Properties
     weak var delegate: CountryPickerViewControllerDelegate?
-    lazy var cancelBarButtonItem: UIBarButtonItem = {
+    @objc lazy var cancelBarButtonItem: UIBarButtonItem = {
         let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didPressCancel(_:)))
         return cancelBarButtonItem
     }()
@@ -36,20 +36,20 @@ class CountryPickerViewController: UIViewController {
         searchController.searchBar.tintColor = .app_orange
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        (UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]) ).defaultTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        (UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]) ).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
         
         return searchController
     }()
     
-    let dataSource: [String] = {
+    @objc let dataSource: [String] = {
         let codes = Locale.isoRegionCodes
         let names = codes.flatMap(Locale.current.localizedString(forRegionCode:)).sorted()
         return ["--"] + names
     }()
     
-    var selectedName = "--"
-    var searchString = ""
-    var shouldAnimateUpdate = true
+    @objc var selectedName = "--"
+    @objc var searchString = ""
+    @objc var shouldAnimateUpdate = true
     
     var searchState: SearchState {
         if searchController.isActive && !searchString.isEmpty
@@ -59,7 +59,7 @@ class CountryPickerViewController: UIViewController {
         return .normal
     }
     
-    var searchResults: [String]
+    @objc var searchResults: [String]
     {
         
         guard searchState == .searching else { return [] }

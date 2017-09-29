@@ -28,6 +28,7 @@ class AdvisoriesTableViewController: UITableViewController {
         
         title = "Advisories"
         view.backgroundColor = .app_black
+        clearsSelectionOnViewWillAppear = true
         
         tableView.rowHeight = 44.0
         
@@ -35,12 +36,12 @@ class AdvisoriesTableViewController: UITableViewController {
         
         navigationController?.navigationBar.barTintColor = UIColor.black
         navigationController?.navigationBar.tintColor = UIColor.app_orange
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationBar.largeTitleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         }
     }
     
@@ -82,5 +83,12 @@ class AdvisoriesTableViewController: UITableViewController {
         guard let view = view as? UITableViewHeaderFooterView else { return }
         view.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         view.textLabel?.textColor = UIColor.app_purple
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let region = CountriesManager.shared.regions?[indexPath.section]
+        guard let country = region?.countries[indexPath.row] else { return }
+        let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
+        navigationController?.pushViewController(advisoryDetailViewController, animated: true)
     }
 }

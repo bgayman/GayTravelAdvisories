@@ -39,7 +39,7 @@ class DatePickerViewController: UIViewController {
     }
 
     private func setupUI() {
-        saveButton.titleLabel?.font = UIFont.app_font(style: .headline, weight: UIFontWeightSemibold)
+        saveButton.titleLabel?.font = UIFont.app_font(style: .headline, weight: UIFont.Weight.semibold)
         saveButton.setTitleColor(.white, for: .normal)
         
         datePicker.setValue(UIColor.white, forKey: "textColor")

@@ -26,7 +26,7 @@ class AddTripViewController: UIViewController {
     @IBOutlet fileprivate weak var returnLabel: UILabel!
     @IBOutlet fileprivate weak var returnTextField: UITextField!
     
-    static let dateFormatter: DateFormatter = {
+    @objc static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         return dateFormatter
@@ -34,8 +34,8 @@ class AddTripViewController: UIViewController {
     
     weak var delegate: AddTripViewControllerDelegate?
     var country: Country?
-    var departureDate: Date?
-    var returnDate: Date?
+    @objc var departureDate: Date?
+    @objc var returnDate: Date?
     var dateSelectionState = DateSelectionState.departureDate
     var trip: Trip? {
         guard let country = self.country,
@@ -70,7 +70,7 @@ class AddTripViewController: UIViewController {
     }
     
     private func setupUI() {
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.tintColor = .app_orange
         view.backgroundColor = .app_black
@@ -81,23 +81,23 @@ class AddTripViewController: UIViewController {
         [returnTextField, departureTextField, destinationTextField].forEach(style)
 
         destinationLabel.textColor = .white
-        destinationLabel.font = UIFont.app_font(style: .title1, weight: UIFontWeightHeavy)
+        destinationLabel.font = UIFont.app_font(style: .title1, weight: UIFont.Weight.heavy)
 
-        destinationTextField.attributedPlaceholder = NSAttributedString(string: "Country", attributes: [NSForegroundColorAttributeName: UIColor(white: 0.9, alpha: 0.9)])
+        destinationTextField.attributedPlaceholder = NSAttributedString(string: "Country", attributes: [NSAttributedStringKey.foregroundColor: UIColor(white: 0.9, alpha: 0.9)])
         
         departureLabel.textColor = .white
-        departureLabel.font = UIFont.app_font(style: .title1, weight: UIFontWeightHeavy)
+        departureLabel.font = UIFont.app_font(style: .title1, weight: UIFont.Weight.heavy)
 
-        departureTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSForegroundColorAttributeName: UIColor(white: 0.9, alpha: 0.9)])
+        departureTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSAttributedStringKey.foregroundColor: UIColor(white: 0.9, alpha: 0.9)])
         
         returnLabel.textColor = .white
-        returnLabel.font = UIFont.app_font(style: .title1, weight: UIFontWeightHeavy)
+        returnLabel.font = UIFont.app_font(style: .title1, weight: UIFont.Weight.heavy)
 
-        returnTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSForegroundColorAttributeName: UIColor(white: 0.9, alpha: 0.9)])
+        returnTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSAttributedStringKey.foregroundColor: UIColor(white: 0.9, alpha: 0.9)])
     }
     
     fileprivate func style(_ textField: UITextField) {
-        textField.font = UIFont.app_font(style: .title2, weight: UIFontWeightBlack)
+        textField.font = UIFont.app_font(style: .title2, weight: UIFont.Weight.black)
         textField.textColor = UIColor.app_purple
         textField.backgroundColor = .clear
         textField.borderStyle = .none
@@ -155,7 +155,7 @@ class AddTripViewController: UIViewController {
 }
 
 extension AddTripViewController: DatePickerViewControllerDelegate {
-    func datePickerViewController(_ viewController: DatePickerViewController, didFinishWith date: Date) {
+    @objc func datePickerViewController(_ viewController: DatePickerViewController, didFinishWith date: Date) {
         switch dateSelectionState {
         case .departureDate:
             departureDate = date
