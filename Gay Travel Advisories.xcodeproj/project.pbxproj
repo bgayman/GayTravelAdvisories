@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CDBC4E651F7DA170001BB077 /* UIColor+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC4E641F7DA170001BB077 /* UIColor+Application.swift */; };
+		CDBC4E681F7DA58F001BB077 /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC4E671F7DA58F001BB077 /* TripsTableViewController.swift */; };
+		CDBC4E6B1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC4E6A1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift */; };
+		CDBC4E6D1F7DACEB001BB077 /* AdvisoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC4E6C1F7DACEB001BB077 /* AdvisoriesTableViewController.swift */; };
+		CDBC4E6F1F7DAFCA001BB077 /* Notifications+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC4E6E1F7DAFCA001BB077 /* Notifications+Application.swift */; };
 		CDD014031F7C7D1200DD1940 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD014021F7C7D1200DD1940 /* AppDelegate.swift */; };
 		CDD0140A1F7C7D1200DD1940 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD014081F7C7D1200DD1940 /* Main.storyboard */; };
 		CDD0140C1F7C7D1200DD1940 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDD0140B1F7C7D1200DD1940 /* Assets.xcassets */; };
@@ -44,6 +49,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CDBC4E641F7DA170001BB077 /* UIColor+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Application.swift"; sourceTree = "<group>"; };
+		CDBC4E671F7DA58F001BB077 /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
+		CDBC4E6A1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+StatusBar.swift"; sourceTree = "<group>"; };
+		CDBC4E6C1F7DACEB001BB077 /* AdvisoriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisoriesTableViewController.swift; sourceTree = "<group>"; };
+		CDBC4E6E1F7DAFCA001BB077 /* Notifications+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+Application.swift"; sourceTree = "<group>"; };
 		CDD013FF1F7C7D1200DD1940 /* Gay Travel Advisories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gay Travel Advisories.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD014021F7C7D1200DD1940 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDD014091F7C7D1200DD1940 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,6 +95,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CDBC4E661F7DA552001BB077 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CDBC4E641F7DA170001BB077 /* UIColor+Application.swift */,
+				CDBC4E6A1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift */,
+				CDBC4E6E1F7DAFCA001BB077 /* Notifications+Application.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		CDBC4E691F7DA59A001BB077 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CDBC4E671F7DA58F001BB077 /* TripsTableViewController.swift */,
+				CDBC4E6C1F7DACEB001BB077 /* AdvisoriesTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		CDD013F61F7C7D1200DD1940 = {
 			isa = PBXGroup;
 			children = (
@@ -107,9 +136,11 @@
 			isa = PBXGroup;
 			children = (
 				CDD014021F7C7D1200DD1940 /* AppDelegate.swift */,
+				CDBC4E691F7DA59A001BB077 /* Controllers */,
+				CDD0143B1F7C911600DD1940 /* Model */,
 				CDD014391F7C90FD00DD1940 /* Networking */,
 				CDD0143A1F7C910900DD1940 /* Managers */,
-				CDD0143B1F7C911600DD1940 /* Model */,
+				CDBC4E661F7DA552001BB077 /* Extensions */,
 				CDD014081F7C7D1200DD1940 /* Main.storyboard */,
 				CDD0140B1F7C7D1200DD1940 /* Assets.xcassets */,
 				CDD0140D1F7C7D1200DD1940 /* LaunchScreen.storyboard */,
@@ -269,13 +300,18 @@
 			files = (
 				CDD0142D1F7C861000DD1940 /* Result.swift in Sources */,
 				CDD014291F7C848E00DD1940 /* CountriesManager.swift in Sources */,
+				CDBC4E651F7DA170001BB077 /* UIColor+Application.swift in Sources */,
 				CDD014481F7D1D8200DD1940 /* ISOCountry.swift in Sources */,
 				CDD014031F7C7D1200DD1940 /* AppDelegate.swift in Sources */,
+				CDBC4E6D1F7DACEB001BB077 /* AdvisoriesTableViewController.swift in Sources */,
 				CDD0143F1F7CA5A300DD1940 /* TravelAdvisoryClient.swift in Sources */,
 				CDD014251F7C7FF900DD1940 /* NetworkActivityIndicatorManager.swift in Sources */,
+				CDBC4E6B1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift in Sources */,
 				CDD0143D1F7C917F00DD1940 /* TravelAdvisory.swift in Sources */,
 				CDD0142B1F7C84F600DD1940 /* Region.swift in Sources */,
 				CDD014271F7C818600DD1940 /* Webservice.swift in Sources */,
+				CDBC4E681F7DA58F001BB077 /* TripsTableViewController.swift in Sources */,
+				CDBC4E6F1F7DAFCA001BB077 /* Notifications+Application.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +532,7 @@
 				CDD014201F7C7D1200DD1940 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CDD014211F7C7D1200DD1940 /* Build configuration list for PBXNativeTarget "Gay Travel AdvisoriesTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +541,7 @@
 				CDD014231F7C7D1200DD1940 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

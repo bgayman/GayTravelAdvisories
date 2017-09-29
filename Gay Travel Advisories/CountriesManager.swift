@@ -27,22 +27,21 @@ class CountriesManager {
     var lastUpdated: Date?
     
     // MARK: - Networking
-    func getAdvisoryRegions(completion: @escaping (Result<[Region]>) -> Void) {
-        
+    func getAdvisoryRegions(completion: ((Result<[Region]>) -> Void)? = nil) {
         Webservice.dataTask(with: Constants.advisoryIndexURL) { (result) in
             switch result {
             case .error(let error):
-                completion(.error(error: error))
+                completion?(.error(error: error))
             case .success(let dictionary):
                 self.update(with: dictionary)
-                completion(.success(response: self.regions ?? []))
+                NotificationCenter.default.post(name: .CountriesManagerDidUpdate, object: nil)
+                completion?(.success(response: self.regions ?? []))
             }
         }
     }
     
     // MARK: - Parsing
     fileprivate func update(with data: Data) throws {
-        
         let dictionary = try JSONSerialization.jsonObject(with: data, options: [])
         
         guard let jsonDict = dictionary as? JSONDictionary else {
@@ -52,7 +51,6 @@ class CountriesManager {
     }
     
     fileprivate func update(with dictionary: JSONDictionary) {
-        
         if let dateValue = dictionary[Keys.lastUpdate.rawValue] as? Double {
             lastUpdated = Date(timeIntervalSince1970: dateValue)
         }
@@ -62,7 +60,6 @@ class CountriesManager {
 
 // MARK: - Test Helpers
 extension CountriesManager {
-    
     static func make(with data: Data) -> CountriesManager? {
         let countriesManager = CountriesManager()
         try? countriesManager.update(with: data)
