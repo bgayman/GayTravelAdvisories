@@ -11,6 +11,7 @@
 		CD16CAD51F7EF6BA00AD8B02 /* UIAlertController+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16CAD41F7EF6BA00AD8B02 /* UIAlertController+Application.swift */; };
 		CD80CA191F7F22B70096A1AC /* UITraitCollection+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */; };
 		CD80CA1B1F7F29BF0096A1AC /* VisualEffectTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD80CA1A1F7F29BF0096A1AC /* VisualEffectTransition.swift */; };
+		CD937A1F1F7F503000F745DE /* PinkTriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD937A1E1F7F503000F745DE /* PinkTriangleView.swift */; };
 		CDAF1AAD1F7E957800ADB3DC /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27D01F7DC7E80077D603 /* FileStorage.swift */; };
 		CDAF1AAF1F7E985A00ADB3DC /* TravelAdvisoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF1AAE1F7E985A00ADB3DC /* TravelAdvisoryViewModel.swift */; };
 		CDAF1AB41F7EDD3A00ADB3DC /* AdvisoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF1AB21F7EDD3A00ADB3DC /* AdvisoryTableViewCell.swift */; };
@@ -82,6 +83,7 @@
 		CD16CAD41F7EF6BA00AD8B02 /* UIAlertController+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Application.swift"; sourceTree = "<group>"; };
 		CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITraitCollection+Application.swift"; sourceTree = "<group>"; };
 		CD80CA1A1F7F29BF0096A1AC /* VisualEffectTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectTransition.swift; sourceTree = "<group>"; };
+		CD937A1E1F7F503000F745DE /* PinkTriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkTriangleView.swift; sourceTree = "<group>"; };
 		CDAF1AAE1F7E985A00ADB3DC /* TravelAdvisoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoryViewModel.swift; sourceTree = "<group>"; };
 		CDAF1AB21F7EDD3A00ADB3DC /* AdvisoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisoryTableViewCell.swift; sourceTree = "<group>"; };
 		CDAF1AB31F7EDD3A00ADB3DC /* AdvisoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdvisoryTableViewCell.xib; sourceTree = "<group>"; };
@@ -167,6 +169,14 @@
 			name = "Animation Controllers";
 			sourceTree = "<group>";
 		};
+		CD937A201F7F512200F745DE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CD937A1E1F7F503000F745DE /* PinkTriangleView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		CDAF1AB61F7EDDB500ADB3DC /* AdvisoryDetailCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +238,7 @@
 				CDD014021F7C7D1200DD1940 /* AppDelegate.swift */,
 				CDBC4E691F7DA59A001BB077 /* Controllers */,
 				CDD0143B1F7C911600DD1940 /* Model */,
+				CD937A201F7F512200F745DE /* Views */,
 				CDD014391F7C90FD00DD1940 /* Networking */,
 				CDD0143A1F7C910900DD1940 /* Managers */,
 				CD16CAD31F7EF64500AD8B02 /* Protocols */,
@@ -473,6 +484,7 @@
 				CDD54D611F7E648000D39D33 /* CountryPickerViewController.swift in Sources */,
 				CDBC4E681F7DA58F001BB077 /* TripsTableViewController.swift in Sources */,
 				CD16CAD21F7EF60100AD8B02 /* ErrorHandleable.swift in Sources */,
+				CD937A1F1F7F503000F745DE /* PinkTriangleView.swift in Sources */,
 				CDDB27E81F7DF5100077D603 /* UIView+Application.swift in Sources */,
 				CDAF1AB41F7EDD3A00ADB3DC /* AdvisoryTableViewCell.swift in Sources */,
 				CDE271EA1F7EF890001715C8 /* AdvisoryDetailEmptyViewController.swift in Sources */,

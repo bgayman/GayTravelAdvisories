@@ -20,6 +20,10 @@ struct Country {
         return URL(string: "https://bradgayman.com/Flags/flags/128/\(displayName?.replacingOccurrences(of: " ", with: "-") ?? "").png")
     }
     
+    var shareLink: URL? {
+        return URL(string: "https://www.scruff.com/gaytravel/advisories/\(abbreviation.lowercased())/")
+    }
+    
     var displayName: String? {
         return Locale.current.localizedString(forRegionCode: abbreviation)
     }

@@ -16,9 +16,24 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     fileprivate var travelAdvisory: TravelAdvisory?
     fileprivate var travelAdvisoryViewModel: TravelAdvisoryViewModel?
     
+    override var previewActionItems: [UIPreviewActionItem] {
+        let shareActionItem = UIPreviewAction(title: "Share", style: .default) { _, viewController in
+            guard let viewController = viewController as? AdvisoryDetailViewController,
+                  let url = viewController.country.shareLink else { return  }
+            let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            UIApplication.shared.keyWindow?.rootViewController?.present(controller, animated: true)
+        }
+        return [shareActionItem]
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    lazy var actionBarButtonItem: UIBarButtonItem = {
+        let actionBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.didPressAction(_:)))
+        return actionBarButtonItem
+    }()
     
     // MARK: - Outlets
     @IBOutlet fileprivate weak var tableView: UITableView!
@@ -77,6 +92,10 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
         let nib = UINib(nibName: "\(AdvisoryTableViewCell.self)", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "\(AdvisoryTableViewCell.self)")
         tableView.separatorStyle = .none
+        
+        if country.shareLink != nil {
+            navigationItem.rightBarButtonItem = actionBarButtonItem
+        }
     }
     
     // MARK: - Networking
@@ -108,6 +127,14 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
             self.mapImageView.image = image
             self.mapActivityIndicator.stopAnimating()
         }
+    }
+    
+    // MARK: - Actions
+    @objc
+    fileprivate func didPressAction(_ sender: UIBarButtonItem) {
+        guard let shareLink = country.shareLink else { return }
+        let activityViewContoller = UIActivityViewController(activityItems: [shareLink], applicationActivities: nil)
+        present(activityViewContoller, animated: true)
     }
 }
 
