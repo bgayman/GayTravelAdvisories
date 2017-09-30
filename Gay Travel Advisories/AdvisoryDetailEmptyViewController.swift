@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import CoreMotion
 
 // MARK: - AdvisoryDetailEmptyViewController
 class AdvisoryDetailEmptyViewController: UIViewController {
 
     // MARK: - Properties
+    let motionManager = CMMotionManager()
+    
     lazy var dynamicAnimator: UIDynamicAnimator = {
         let dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
         return dynamicAnimator
@@ -64,6 +67,8 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         return pinkTriangleViews
     }()
     
+    var respondsToDeviceGravity = false
+    
     // MARK: - Outlets
     @IBOutlet fileprivate var imageView: UIImageView!
     @IBOutlet fileprivate var descriptionLabel: UILabel!
@@ -82,10 +87,9 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         dynamicAnimator.addBehavior(labelAttachmentBehavior)
         dynamicAnimator.addBehavior(itemBehavior)
         dynamicAnimator.addBehavior(pinkTrianglesItemBehavior)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-            UIView.animate(withDuration: 0.3) { [unowned self] in
-                self.pinkTriangleViews.forEach { $0.alpha = 0.0 }
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            self.updateCollisionBounds()
+            self.respondsToDeviceGravity = true
         }
     }
     
@@ -93,11 +97,23 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         super.viewDidLayoutSubviews()
         imageView.center = CGPoint(x: view.bounds.midX, y: -imageView.bounds.midY)
         descriptionLabel.center = CGPoint(x: view.bounds.midY, y: -descriptionLabel.bounds.midY)
+        
+        let y: CGFloat
+        if respondsToDeviceGravity {
+            updateCollisionBounds()
+            y = 25.0 + topLayoutGuide.length
+        }
+        else {
+            y = -view.bounds.midY
+        }
+        
         let offset = view.bounds.width / CGFloat(pinkTriangleViews.count)
         pinkTriangleViews.enumerated().forEach { (arg) in
             let (index, view) = arg
-            view.center = CGPoint(x: CGFloat(index) * offset, y: -view.bounds.midY)
+            view.center = CGPoint(x: CGFloat(index) * offset, y: y)
+            dynamicAnimator.updateItem(usingCurrentState: view)
         }
+        imageSnapBehavior.snapPoint = view.center
     }
 
     // MARK: - Setup
@@ -124,6 +140,55 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         view.addSubview(imageView)
         view.addSubview(descriptionLabel)
         pinkTriangleViews.forEach { view.addSubview($0) }
+        
+        motionManager.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: gravityUpdated)
     }
+    
+    // MARK: - Helper
+    private func updateCollisionBounds() {
+        let inset: UIEdgeInsets
+        if #available(iOS 11.0, *) {
+            inset = self.view.safeAreaInsets
+        }
+        else {
+            inset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: self.bottomLayoutGuide.length, right: 0)
+        }
+        self.collision.setTranslatesReferenceBoundsIntoBoundary(with: inset)
+    }
+    
+    // MARK: - Core Motion
+    @objc
+    private func gravityUpdated(motion: CMDeviceMotion?, error: Error?) {
+        
+        guard let motion = motion else { return }
+        let grav: CMAcceleration = motion.gravity;
+        
+        let x = CGFloat(grav.x)
+        let y = CGFloat(grav.y)
+        var p = CGPoint(x: x, y: y)
+        
+        let orientation = UIApplication.shared.statusBarOrientation;
+        
+        if orientation == UIInterfaceOrientation.landscapeRight {
+            let t = p.x
+            p.x = 0 - p.y
+            p.y = t
+        }
+        else if orientation == UIInterfaceOrientation.landscapeLeft {
+            let t = p.x
+            p.x = p.y
+            p.y = 0 - t
+        }
+        else if orientation == UIInterfaceOrientation.portraitUpsideDown {
+            p.x *= -1
+            p.y *= -1
+        }
+        
+        let v = CGVector(dx: p.x, dy: 0 - p.y)
+        if respondsToDeviceGravity {
+            gravity.gravityDirection = v
+        }
+    }
+    
 }
 

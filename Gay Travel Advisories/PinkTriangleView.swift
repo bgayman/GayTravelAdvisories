@@ -52,10 +52,11 @@ class PinkTriangleView: UIView {
 
 final class AttentionImageView: UIImageView {
     override var collisionBoundingPath: UIBezierPath {
+        let bottomInset = bounds.height * 0.04
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0.0, y: -bounds.midY))
-        path.addLine(to: CGPoint(x: bounds.midX, y: bounds.midY))
-        path.addLine(to: CGPoint(x: -bounds.midX, y: bounds.midY))
+        path.addLine(to: CGPoint(x: bounds.midX, y: bounds.midY - bottomInset))
+        path.addLine(to: CGPoint(x: -bounds.midX, y: bounds.midY - bottomInset))
         path.close()
         return path
     }
