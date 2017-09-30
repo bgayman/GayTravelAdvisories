@@ -111,6 +111,7 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     }
 }
 
+// MARK: - UITableViewDataSource / UITableViewDelegate
 extension AdvisoryDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return travelAdvisoryViewModel?.sections.count ?? 0

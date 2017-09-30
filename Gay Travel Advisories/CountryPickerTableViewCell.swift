@@ -8,8 +8,10 @@
 
 import UIKit
 
+// MARK: - CountryPickerTableViewCell
 class CountryPickerTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
     @objc var name: String? {
         didSet {
             countryLabel.text = name
@@ -31,8 +33,10 @@ class CountryPickerTableViewCell: UITableViewCell {
         return attribString
     }
 
+    // MARK: - Outlets
     @IBOutlet fileprivate weak var countryLabel: UILabel!
     
+    // MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         countryLabel.font = UIFont.app_font(style: .body, weight: UIFont.Weight.medium)

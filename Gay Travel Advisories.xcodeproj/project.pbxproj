@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		CD16CAD21F7EF60100AD8B02 /* ErrorHandleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16CAD11F7EF60100AD8B02 /* ErrorHandleable.swift */; };
 		CD16CAD51F7EF6BA00AD8B02 /* UIAlertController+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16CAD41F7EF6BA00AD8B02 /* UIAlertController+Application.swift */; };
+		CD80CA191F7F22B70096A1AC /* UITraitCollection+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */; };
+		CD80CA1B1F7F29BF0096A1AC /* VisualEffectTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD80CA1A1F7F29BF0096A1AC /* VisualEffectTransition.swift */; };
 		CDAF1AAD1F7E957800ADB3DC /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB27D01F7DC7E80077D603 /* FileStorage.swift */; };
 		CDAF1AAF1F7E985A00ADB3DC /* TravelAdvisoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF1AAE1F7E985A00ADB3DC /* TravelAdvisoryViewModel.swift */; };
 		CDAF1AB41F7EDD3A00ADB3DC /* AdvisoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAF1AB21F7EDD3A00ADB3DC /* AdvisoryTableViewCell.swift */; };
@@ -78,6 +80,8 @@
 /* Begin PBXFileReference section */
 		CD16CAD11F7EF60100AD8B02 /* ErrorHandleable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandleable.swift; sourceTree = "<group>"; };
 		CD16CAD41F7EF6BA00AD8B02 /* UIAlertController+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Application.swift"; sourceTree = "<group>"; };
+		CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITraitCollection+Application.swift"; sourceTree = "<group>"; };
+		CD80CA1A1F7F29BF0096A1AC /* VisualEffectTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectTransition.swift; sourceTree = "<group>"; };
 		CDAF1AAE1F7E985A00ADB3DC /* TravelAdvisoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAdvisoryViewModel.swift; sourceTree = "<group>"; };
 		CDAF1AB21F7EDD3A00ADB3DC /* AdvisoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisoryTableViewCell.swift; sourceTree = "<group>"; };
 		CDAF1AB31F7EDD3A00ADB3DC /* AdvisoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdvisoryTableViewCell.xib; sourceTree = "<group>"; };
@@ -155,6 +159,14 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		CD80CA1C1F7F2C7D0096A1AC /* Animation Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CD80CA1A1F7F29BF0096A1AC /* VisualEffectTransition.swift */,
+			);
+			name = "Animation Controllers";
+			sourceTree = "<group>";
+		};
 		CDAF1AB61F7EDDB500ADB3DC /* AdvisoryDetailCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +186,7 @@
 				CDDB27E01F7DDF860077D603 /* UITableView+Animations.swift */,
 				CDDB27E71F7DF5100077D603 /* UIView+Application.swift */,
 				CD16CAD41F7EF6BA00AD8B02 /* UIAlertController+Application.swift */,
+				CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -181,6 +194,7 @@
 		CDBC4E691F7DA59A001BB077 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CD80CA1C1F7F2C7D0096A1AC /* Animation Controllers */,
 				CDBC4E671F7DA58F001BB077 /* TripsTableViewController.swift */,
 				CDDB27DB1F7DD5640077D603 /* TripTableViewCells */,
 				CDBC4E6C1F7DACEB001BB077 /* AdvisoriesTableViewController.swift */,
@@ -442,6 +456,8 @@
 				CDDB27D91F7DD2A80077D603 /* TripTableViewCell.swift in Sources */,
 				CDBC4E6D1F7DACEB001BB077 /* AdvisoriesTableViewController.swift in Sources */,
 				CDD54D651F7E6D3E00D39D33 /* AdvisoryDetailViewController.swift in Sources */,
+				CD80CA1B1F7F29BF0096A1AC /* VisualEffectTransition.swift in Sources */,
+				CD80CA191F7F22B70096A1AC /* UITraitCollection+Application.swift in Sources */,
 				CDD0143F1F7CA5A300DD1940 /* TravelAdvisoryClient.swift in Sources */,
 				CDD014251F7C7FF900DD1940 /* NetworkActivityIndicatorManager.swift in Sources */,
 				CDBC4E6B1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift in Sources */,

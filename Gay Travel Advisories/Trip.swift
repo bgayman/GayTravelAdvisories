@@ -8,13 +8,17 @@
 
 import Foundation
 
+// MARK: - Trip
 struct Trip {
+    
+    // MARK: - Types
     enum Keys: String {
         case country
         case departureDate
         case returnDate
     }
     
+    // MARK: - Properties
     static let dateIntervalFormatter: DateIntervalFormatter = {
         var dateIntervalFormatter = DateIntervalFormatter()
         dateIntervalFormatter.dateStyle = .medium
@@ -37,7 +41,9 @@ struct Trip {
     }
 }
 
+// MARK: - Init
 extension Trip {
+    
     init?(dictionary: JSONDictionary) {
         guard let countryValue = dictionary[Keys.country.rawValue] as? String,
               let departureDateValue = dictionary[Keys.departureDate.rawValue] as? Double,
@@ -48,12 +54,14 @@ extension Trip {
     }
 }
 
+// MARK: - Equatable
 extension Trip: Equatable {
     static func == (lhs: Trip, rhs: Trip) -> Bool {
         return lhs.country.abbreviation == rhs.country.abbreviation && lhs.departureDate == rhs.departureDate && lhs.returnDate == rhs.returnDate
     }
 }
 
+// MARK: - Comparable
 extension Trip: Comparable {
     static func < (lhs: Trip, rhs: Trip) -> Bool {
         if lhs.departureDate == rhs.departureDate {
@@ -63,6 +71,7 @@ extension Trip: Comparable {
     }
 }
 
+// MARK: - Hashable
 extension Trip: Hashable {
     var hashValue: Int {
         return country.abbreviation.hashValue ^ departureDate.hashValue ^ returnDate.hashValue

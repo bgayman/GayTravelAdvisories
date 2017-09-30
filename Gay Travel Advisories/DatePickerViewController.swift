@@ -8,21 +8,29 @@
 
 import UIKit
 
+// MARK: - DatePickerViewControllerDelegate
 protocol DatePickerViewControllerDelegate: class {
     func datePickerViewController(_ viewController: DatePickerViewController, didFinishWith date: Date)
 }
 
+// MARK: - DatePickerViewController
 class DatePickerViewController: UIViewController {
 
+    // MARK: - Outlets
     @IBOutlet fileprivate weak var outlineView: UIView!
     @IBOutlet fileprivate weak var lineSeparatorView: UIView!
     @IBOutlet fileprivate weak var datePicker: UIDatePicker!
     @IBOutlet fileprivate weak var saveButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var backgroundVisualEffectView: UIVisualEffectView!
     
+    // MARK: - Properties
     weak var delegate: DatePickerViewControllerDelegate?
     fileprivate let minDate: Date
+    fileprivate var dismissTransition: VisualEffectTransition?
+    fileprivate let presentTransition = VisualEffectTransition(isAppearing: true)
     
+    // MARK: - Lifecycle
     init(delegate: DatePickerViewControllerDelegate, minDate: Date) {
         self.delegate = delegate
         self.minDate = minDate
@@ -38,6 +46,7 @@ class DatePickerViewController: UIViewController {
         setupUI()
     }
 
+    // MARK: - Setup
     private func setupUI() {
         saveButton.titleLabel?.font = UIFont.app_font(style: .headline, weight: UIFont.Weight.semibold)
         saveButton.setTitleColor(.white, for: .normal)
@@ -52,8 +61,11 @@ class DatePickerViewController: UIViewController {
         outlineView.layer.borderWidth = 1.0
         
         closeButton.tintColor = UIColor.app_orange
+        dismissTransition = VisualEffectTransition(isAppearing: false, view: view, presentedVC: self)
+
     }
     
+    // MARK: - Actions
     @IBAction func didPressSave(_ sender: UIButton) {
         delegate?.datePickerViewController(self, didFinishWith: datePicker.date)
         dismiss(animated: true)
@@ -61,5 +73,32 @@ class DatePickerViewController: UIViewController {
     
     @IBAction func didPressClose(_ sender: UIButton) {
         dismiss(animated: true)
+    }
+}
+
+// MARK: - VisualEffectTransitionToViewProtocal
+extension DatePickerViewController: VisualEffectTransitionToViewProtocal {
+    
+    var visualEffectView: UIVisualEffectView {
+        return backgroundVisualEffectView
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension DatePickerViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return presentTransition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return VisualEffectTransition(duration: 0.2, isAppearing: false)
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return dismissTransition?.panGestureRecognizer?.state != .possible ? dismissTransition : nil
+    }
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
     }
 }

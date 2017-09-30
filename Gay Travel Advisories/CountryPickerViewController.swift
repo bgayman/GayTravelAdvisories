@@ -8,10 +8,12 @@
 
 import UIKit
 
+// MARK: - CountryPickerViewControllerDelegate
 protocol CountryPickerViewControllerDelegate: class {
     func countryPickerViewController(_ viewController: CountryPickerViewController, didFinishWith country: Country)
 }
 
+// MARK: - CountryPickerViewController
 class CountryPickerViewController: UIViewController {
     
     // MARK: - Types

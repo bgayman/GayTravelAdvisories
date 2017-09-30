@@ -8,17 +8,21 @@
 
 import UIKit
 
+// MARK: - AddTripViewControllerDelegate
 protocol AddTripViewControllerDelegate: class {
     func addTripViewController(_ viewController: AddTripViewController, didFinishWith trip: Trip)
 }
 
+// MARK: - AddTripViewController
 class AddTripViewController: UIViewController {
     
+    // MARK: - Types
     enum DateSelectionState {
         case departureDate
         case returnDate
     }
 
+    // MARK: - Outlets
     @IBOutlet fileprivate weak var destinationLabel: UILabel!
     @IBOutlet fileprivate weak var destinationTextField: UITextField!
     @IBOutlet fileprivate weak var departureLabel: UILabel!
@@ -26,6 +30,7 @@ class AddTripViewController: UIViewController {
     @IBOutlet fileprivate weak var returnLabel: UILabel!
     @IBOutlet fileprivate weak var returnTextField: UITextField!
     
+    // MARK: - Properties
     @objc static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -55,6 +60,7 @@ class AddTripViewController: UIViewController {
         return cancelBarButtonItem
     }()
     
+    // MARK: - Lifecycle
     init(delegate: AddTripViewControllerDelegate) {
         self.delegate = delegate
         super.init(nibName: "\(AddTripViewController.self)", bundle: nil)
@@ -69,6 +75,7 @@ class AddTripViewController: UIViewController {
         setupUI()
     }
     
+    // MARK: - Setup
     private func setupUI() {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = .black
@@ -114,6 +121,7 @@ class AddTripViewController: UIViewController {
         saveBarButtonItem.isEnabled = trip != nil
     }
     
+    // MARK: - Actions
     @IBAction fileprivate func didPressDestination(_ sender: UIButton) {
         let countryPickerViewController = CountryPickerViewController(delegate: self)
         let navigationController = UINavigationController(rootViewController: countryPickerViewController)
@@ -124,8 +132,8 @@ class AddTripViewController: UIViewController {
     @IBAction fileprivate func didPressDeparture(_ sender: UIButton) {
         dateSelectionState = .departureDate
         let datePickerViewController = DatePickerViewController(delegate: self, minDate: Date())
-        datePickerViewController.modalPresentationStyle = .overCurrentContext
-        datePickerViewController.modalTransitionStyle = .crossDissolve
+        datePickerViewController.modalPresentationStyle = .custom
+        datePickerViewController.transitioningDelegate = datePickerViewController
         present(datePickerViewController, animated: true)
     }
     
@@ -136,8 +144,8 @@ class AddTripViewController: UIViewController {
         }
         dateSelectionState = .returnDate
         let datePickerViewController = DatePickerViewController(delegate: self, minDate: departureDate)
-        datePickerViewController.modalPresentationStyle = .overCurrentContext
-        datePickerViewController.modalTransitionStyle = .crossDissolve
+        datePickerViewController.modalPresentationStyle = .custom
+        datePickerViewController.transitioningDelegate = datePickerViewController
         present(datePickerViewController, animated: true)
     }
     
@@ -156,6 +164,7 @@ class AddTripViewController: UIViewController {
     }
 }
 
+// MARK: - DatePickerViewControllerDelegate
 extension AddTripViewController: DatePickerViewControllerDelegate {
     @objc func datePickerViewController(_ viewController: DatePickerViewController, didFinishWith date: Date) {
         switch dateSelectionState {
@@ -168,6 +177,7 @@ extension AddTripViewController: DatePickerViewControllerDelegate {
     }
 }
 
+// MARK: - CountryPickerViewControllerDelegate
 extension AddTripViewController: CountryPickerViewControllerDelegate {
     func countryPickerViewController(_ viewController: CountryPickerViewController, didFinishWith country: Country) {
         self.country = country

@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DatePickerViewController" customModule="Gay_Travel_Advisories" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundVisualEffectView" destination="aI4-Wv-LBT" id="rsT-nP-S9u"/>
                 <outlet property="closeButton" destination="mfy-4C-cxS" id="aOM-Cm-RJf"/>
                 <outlet property="datePicker" destination="DOq-Lp-XBh" id="xy6-CA-TVU"/>
                 <outlet property="lineSeparatorView" destination="laB-Ua-1se" id="XvZ-e5-Azs"/>

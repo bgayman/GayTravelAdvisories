@@ -8,12 +8,15 @@
 
 import UIKit
 
+// MARK: - AdvisoriesTableViewController
 class AdvisoriesTableViewController: UITableViewController {
 
+    // MARK: - Properties
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -24,6 +27,7 @@ class AdvisoriesTableViewController: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
+    // MARK: - Setup
     private func setupUI() {
         
         title = "Advisories"
@@ -42,6 +46,10 @@ class AdvisoriesTableViewController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        }
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: view)
         }
     }
     
@@ -89,7 +97,7 @@ class AdvisoriesTableViewController: UITableViewController {
         let region = CountriesManager.shared.regions?[indexPath.section]
         guard let country = region?.countries[indexPath.row] else { return }
         let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
-        if tabBarController?.splitViewController != nil {
+        if tabBarController?.splitViewController != nil && tabBarController?.splitViewController?.traitCollection.isLargerDevice == true {
             tableView.deselectRow(at: indexPath, animated: true)
             let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
             tabBarController?.splitViewController?.showDetailViewController(navigationController, sender: nil)
@@ -97,5 +105,23 @@ class AdvisoriesTableViewController: UITableViewController {
         else {
             navigationController?.pushViewController(advisoryDetailViewController, animated: true)
         }
+    }
+}
+
+extension AdvisoriesTableViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location),
+              let region = CountriesManager.shared.regions?[indexPath.section],
+              let cell = tableView.cellForRow(at: indexPath) else { return nil }
+        let rect = view.convert(cell.bounds, from: cell)
+        previewingContext.sourceRect = rect
+        let country = region.countries[indexPath.row]
+        let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
+        return advisoryDetailViewController
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }

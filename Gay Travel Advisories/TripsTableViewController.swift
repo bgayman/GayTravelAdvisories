@@ -9,8 +9,9 @@
 import UIKit
 
 // MARK: - TripsTableViewController
-class TripsTableViewController: UITableViewController {
+final class TripsTableViewController: UITableViewController {
 
+    // MARK: - Properties
     @objc lazy var addBarButtonItem: UIBarButtonItem = {
         let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.didPressAdd(_:)))
         return addBarButtonItem
@@ -20,6 +21,7 @@ class TripsTableViewController: UITableViewController {
         return .lightContent
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -30,6 +32,7 @@ class TripsTableViewController: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    // MARK: - Setup
     private func setupUI() {
         
         title = "Trips"
@@ -50,6 +53,10 @@ class TripsTableViewController: UITableViewController {
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         }
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: view)
+        }
     }
     
     private func setupNotifications() {
@@ -58,6 +65,7 @@ class TripsTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Actions
     @objc
     private func didPressAdd(_ sender: UIBarButtonItem) {
         let addTripViewController = AddTripViewController(delegate: self)
@@ -73,8 +81,7 @@ class TripsTableViewController: UITableViewController {
               let cell = tableView.cellForRow(at: indexPath) as? TripTableViewCell,
               let trip = cell.trip else { return  }
         let advisoryDetailViewController = AdvisoryDetailViewController(country: trip.country)
-        if tabBarController?.splitViewController != nil {
-           
+        if tabBarController?.splitViewController != nil && tabBarController?.splitViewController?.traitCollection.isLargerDevice == true {
             let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
             tabBarController?.splitViewController?.showDetailViewController(navigationController, sender: nil)
         }
@@ -106,9 +113,37 @@ class TripsTableViewController: UITableViewController {
         }
         return [delete]
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? TripTableViewCell else { return }
+        cell.travelAdvisoryButton.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.0, options: [], animations: {
+            cell.travelAdvisoryButton.transform = .identity
+        })
+    }
 
 }
 
+// MARK: - UIViewControllerPreviewingDelegate
+extension TripsTableViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location),
+              let cell = tableView.cellForRow(at: indexPath) as? TripTableViewCell else { return nil }
+        let rect = view.convert(cell.travelAdvisoryButton.bounds, from: cell.travelAdvisoryButton)
+        guard rect.contains(location) else { return nil }
+        previewingContext.sourceRect = rect
+        let trip = TripManager.shared.trips[indexPath.row]
+        let advisoryDetailViewController = AdvisoryDetailViewController(country: trip.country)
+        return advisoryDetailViewController
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - AddTripViewControllerDelegate
 extension TripsTableViewController: AddTripViewControllerDelegate {
     func addTripViewController(_ viewController: AddTripViewController, didFinishWith trip: Trip) {
         let oldValue = TripManager.shared.trips

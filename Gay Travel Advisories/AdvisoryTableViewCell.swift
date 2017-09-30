@@ -8,16 +8,20 @@
 
 import UIKit
 
+// MARK: - AdvisoryTableViewCell
 class AdvisoryTableViewCell: UITableViewCell {
 
+    // MARK: - Outlets
     @IBOutlet fileprivate weak var textView: UITextView!
     
+    // MARK: - Properties
     var attributedText: NSAttributedString? {
         didSet {
             textView.attributedText = attributedText
         }
     }
     
+    // MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         textView.tintColor = UIColor.app_orange

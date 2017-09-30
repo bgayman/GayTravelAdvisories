@@ -10,6 +10,7 @@ import UIKit
 
 struct TravelAdvisoryViewModel {
     
+    // MARK: - Types
     enum TravelAdvisorySections: Hashable, Equatable {
         case legalCode(text: NSAttributedString)
         case prisonTerm(text: NSAttributedString)
@@ -73,10 +74,12 @@ struct TravelAdvisoryViewModel {
         
     }
     
+    // MARK: - Properties
     let travelAdvisory: TravelAdvisory
     
     private(set) var sections: [TravelAdvisorySections] = []
     
+    // MARK: - Lifecycle
     init(travelAdvisory: TravelAdvisory) {
         self.travelAdvisory = travelAdvisory
         var sections = [TravelAdvisorySections]()
@@ -107,6 +110,7 @@ struct TravelAdvisoryViewModel {
         self.sections = sections
     }
     
+    // MARK: - Helpers
     private func attributedText(for legalCode: TravelAdvisory.LegalCode?) -> NSAttributedString? {
         guard let legalCode = legalCode else { return nil }
         let string = [legalCode.title,
