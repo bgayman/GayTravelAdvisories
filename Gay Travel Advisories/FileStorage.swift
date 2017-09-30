@@ -10,8 +10,13 @@ import Foundation
 
 struct FileStorage {
     static var shared = FileStorage()
+    static var cache: FileStorage = {
+        var cache = FileStorage()
+        cache.baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        return cache
+    }()
     
-    let baseURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    private (set) var baseURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     
     subscript(key: String) -> Data? {
         get {

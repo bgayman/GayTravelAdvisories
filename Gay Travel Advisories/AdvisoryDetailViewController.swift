@@ -9,11 +9,12 @@
 import UIKit
 
 // MARK: - AdvisoryDetailViewController
-class AdvisoryDetailViewController: UIViewController {
+class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
 
     // MARK: - Properties
     fileprivate let country: Country
     fileprivate var travelAdvisory: TravelAdvisory?
+    fileprivate var travelAdvisoryViewModel: TravelAdvisoryViewModel?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -21,19 +22,17 @@ class AdvisoryDetailViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet fileprivate weak var tableView: UITableView!
-    @IBOutlet var tableHeaderView: UIView!
-    @IBOutlet weak var mapImageView: UIImageView!
-    @IBOutlet weak var flagImageView: UIImageView!
-    @IBOutlet weak var mapActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var countryNameLabel: UILabel!
+    @IBOutlet fileprivate var tableHeaderView: UIView!
+    @IBOutlet fileprivate weak var mapImageView: UIImageView!
+    @IBOutlet fileprivate weak var flagImageView: UIImageView!
+    @IBOutlet fileprivate weak var mapActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var countryNameLabel: UILabel!
+    @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Lifecycle
     init(country: Country) {
         self.country = country
         super.init(nibName: "\(AdvisoryDetailViewController.self)", bundle: nil)
-        getTravelAdvisory()
-        getFlagImage()
-        getMapImage()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +41,9 @@ class AdvisoryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getTravelAdvisory()
+        getFlagImage()
+        getMapImage()
         setupUI()
     }
     
@@ -66,18 +68,30 @@ class AdvisoryDetailViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.tableHeaderView = tableHeaderView
         tableHeaderView.backgroundColor = .app_black
-        tableHeaderView.heightAnchor.constraint(equalToConstant: 250.0).isActive = true
+        tableView.estimatedRowHeight = 150.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        tableView.estimatedSectionHeaderHeight = 50.0
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        
+        let nib = UINib(nibName: "\(AdvisoryTableViewCell.self)", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "\(AdvisoryTableViewCell.self)")
+        tableView.separatorStyle = .none
     }
     
     // MARK: - Networking
     fileprivate func getTravelAdvisory() {
+        activityIndicator.startAnimating()
         TravelAdvisoryClient.getTravelAdvisory(for: country) { (result) in
+            self.activityIndicator.stopAnimating()
             switch result {
-            // TODO: - Handle Error
-            case .error:
-                break
+            case .error(let error):
+                self.handle(error)
             case .success(let travelAdvisory):
+                let oldValue = self.travelAdvisoryViewModel?.sections
                 self.travelAdvisory = travelAdvisory
+                self.travelAdvisoryViewModel = TravelAdvisoryViewModel(travelAdvisory: travelAdvisory)
+                self.tableView.animateSectionUpdate(oldDataSource: oldValue ?? [], newDataSource: self.travelAdvisoryViewModel?.sections ?? [])
             }
         }
     }
@@ -98,11 +112,43 @@ class AdvisoryDetailViewController: UIViewController {
 }
 
 extension AdvisoryDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return travelAdvisoryViewModel?.sections.count ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return travelAdvisoryViewModel?.sections[section].sectionTitle
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let view = view as? UITableViewHeaderFooterView else { return }
+        view.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        view.textLabel?.textColor = UIColor.app_purple
+        view.textLabel?.font = UIFont.app_font(style: .headline, weight: .black)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(AdvisoryTableViewCell.self)", for: indexPath) as! AdvisoryTableViewCell
+        
+        guard let section = travelAdvisoryViewModel?.sections[indexPath.section] else { return UITableViewCell() }
+        switch section {
+        case .legalCode(let text):
+            cell.attributedText = text
+        case .penalty(let text):
+            cell.attributedText = text
+        case .fine(let text):
+            cell.attributedText = text
+        case .prisonTerm(let text):
+            cell.attributedText = text
+        case .shariaLaw(let text):
+            cell.attributedText = text
+        case .propagandaLaw(let text):
+            cell.attributedText = text
+        }
+        return cell
     }
 }

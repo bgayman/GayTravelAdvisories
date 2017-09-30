@@ -89,6 +89,13 @@ class AdvisoriesTableViewController: UITableViewController {
         let region = CountriesManager.shared.regions?[indexPath.section]
         guard let country = region?.countries[indexPath.row] else { return }
         let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
-        navigationController?.pushViewController(advisoryDetailViewController, animated: true)
+        if tabBarController?.splitViewController != nil {
+            tableView.deselectRow(at: indexPath, animated: true)
+            let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
+            tabBarController?.splitViewController?.showDetailViewController(navigationController, sender: nil)
+        }
+        else {
+            navigationController?.pushViewController(advisoryDetailViewController, animated: true)
+        }
     }
 }

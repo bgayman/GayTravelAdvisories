@@ -30,6 +30,13 @@ class CountriesManager {
     
     // MARK: - Networking
     func getAdvisoryRegions(completion: ((Result<[Region]>) -> Void)? = nil) {
+        
+        // Load from disk if available
+        if let data = FileStorage.cache["\(Constants.advisoryIndexURL.hashValue)"] {
+            try? update(with: data)
+        }
+        
+        // Update from server
         Webservice.dataTask(with: Constants.advisoryIndexURL) { (result) in
             switch result {
             case .error(let error):
@@ -38,6 +45,10 @@ class CountriesManager {
                 self.update(with: dictionary)
                 NotificationCenter.default.post(name: .CountriesManagerDidUpdate, object: nil)
                 completion?(.success(response: self.regions ?? []))
+                if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: [.prettyPrinted]) {
+                    FileStorage.cache["\(Constants.advisoryIndexURL.hashValue)"] = data
+                }
+                
             }
         }
     }

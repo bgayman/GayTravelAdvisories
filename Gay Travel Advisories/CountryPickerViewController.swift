@@ -158,10 +158,8 @@ extension CountryPickerViewController: UITableViewDataSource, UITableViewDelegat
         shouldAnimateUpdate = false
         tableView.reloadRows(at: [indexPath], with: .none)
         searchController.isActive = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.delegate?.countryPickerViewController(self, didFinishWith: country)
-            self.dismiss(animated: true)
-        }
+        self.delegate?.countryPickerViewController(self, didFinishWith: country)
+        self.dismiss(animated: true)
     }
 }
 

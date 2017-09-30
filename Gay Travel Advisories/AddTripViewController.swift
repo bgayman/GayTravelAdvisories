@@ -145,6 +145,8 @@ class AddTripViewController: UIViewController {
     fileprivate func didPressSave(_ sender: UIBarButtonItem) {
         guard let trip = self.trip else { return }
         delegate?.addTripViewController(self, didFinishWith: trip)
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
         dismiss(animated: true)
     }
     

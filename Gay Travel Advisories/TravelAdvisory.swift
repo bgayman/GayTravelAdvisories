@@ -102,6 +102,50 @@ extension TravelAdvisory {
         let isCriminalizationUnderConsideration: Bool?
         let isRecentlyDecriminalized: Bool?
         
+        var sameSexActsString: String? {
+            return isExplicitlySameSexActs == true ? "Legal code explicitly mentioned same sex acts" : nil
+        }
+        
+        var againstNatureString: String? {
+            return isExplicitlyActsAgainstNature == true ? "Legal code explicitly mentioned acts against nature." : nil
+        }
+        
+        var analSexString: String? {
+            return isAnalSexDifferentFromOtherActs == true ? "Legal code treats anal sex different from other acts." : nil
+        }
+        
+        var hivAggravatingString: String? {
+            return isHIVAggravtingFactor == true ? "Legal code treats HIV status as aggravating factor." : nil
+        }
+        
+        var ageOfConsentString: String? {
+            return isAgeOfConsentForHomosexualActsOver18 == true ? "Legal code sets age of consent for Homosexual acts over 18." : nil
+        }
+        
+        var existingLawString: String? {
+            return isExistingLawsUsedToTargetGays == true ? "Existing legal code is used to target gays." : nil
+        }
+        
+        var subregionalString: String? {
+            return isLawSubregionalVarienceOrContradiction == true ? "Law has subregional varience and/or contradictions." : nil
+        }
+        
+        var specificallyHomophobicString: String? {
+            return isLawNotSpecificallyHomophobic == true ? "Law is not specifically homophobic." : nil
+        }
+        
+        var lawStatusString: String? {
+            return isLawStatusUnclear == true ? "Law status is unclear." : nil
+        }
+        
+        var criminalizationUnderconsiderationString: String? {
+            return isCriminalizationUnderConsideration == true ? "Criminalization is under consideration." : nil
+        }
+        
+        var decriminalizedString: String? {
+            return isRecentlyDecriminalized == true ? "Recently decriminalized." : nil
+        }
+        
         enum Keys: String {
             case title = "legal_code_title"
             case titleCitation = "legal_code_title_citation_1"
@@ -186,6 +230,27 @@ extension TravelAdvisory {
         let isLife: Bool?
         let isMandatory: Bool?
         
+        var lengthString: String? {
+            let min = minLength == nil ? nil : "\(minLength!)"
+            let max = maxLength == nil ? nil : "\(maxLength!)"
+            let years = isYears == true ? "years" : nil
+            var lengthString = [min, max].flatMap { $0 }.joined(separator: "-")
+            lengthString = [lengthString, years].flatMap { $0 }.joined(separator: " ")
+            return lengthString
+        }
+        
+        var mandatoryString: String? {
+            return isMandatory == true ? "Prison term is mandatory." : nil
+        }
+        
+        var specifiedString: String? {
+            return isNotSpecified == true ? "Prison term is not specified." : nil
+        }
+        
+        var lifeString: String? {
+            return isLife == true ? "Prison term is for life." : nil
+        }
+        
         enum Keys: String {
             case minLength = "prison_term_min_length"
             case maxLength = "prison_term_max_length"
@@ -222,6 +287,23 @@ extension TravelAdvisory {
         let isAmount: Bool?
         let isMandatory: Bool?
         
+        var amountString: String? {
+            let min = minAmount == nil ? nil : "\(minAmount!)"
+            let max = maxAmount == nil ? nil : "\(maxAmount!)"
+            let curr = currency == nil ? nil : currency!
+            var lengthString = [min, max].flatMap { $0 }.joined(separator: "-")
+            lengthString = [lengthString, curr].flatMap { $0 }.joined(separator: " ")
+            return lengthString
+        }
+        
+        var mandatoryString: String? {
+            return isMandatory == true ? "Fine is mandatory." : nil
+        }
+        
+        var specifiedString: String? {
+            return isNotSpecified == true ? "Fine is not specified." : nil
+        }
+        
         enum Keys: String {
             case minAmount = "fine_min_amount"
             case maxAmount = "fine_max_amount"
@@ -257,6 +339,22 @@ extension TravelAdvisory {
         let hardLaborNotes: String?
         let isBanishment: Bool?
         
+        var deathString: String? {
+            return isDeath == true ? "Penalty is death." : nil
+        }
+        
+        var corporalString: String? {
+            return isCorporalPunishment == true ? "Penalty is corporal punishment." : nil
+        }
+        
+        var hardLaborString: String? {
+            return isHardLabor == true ? "Penalty is hard labor." : nil
+        }
+        
+        var banishmentString: String? {
+            return isBanishment == true ? "Penalty is banishment." : nil
+        }
+        
         enum Keys: String {
             case isDeath = "penalty_death"
             case deathNotes = "penalty_death_notes"
@@ -291,6 +389,10 @@ extension TravelAdvisory {
         enum Keys: String {
             case isShariaLaw = "islamic_sharia_law"
             case shariaLawNotes = "islamic_sharia_law_notes"
+        }
+        
+        var shariaLawString: String? {
+            return isShariaLaw == true ? "Law is part of Islamic Sharia Law." : nil
         }
         
         init?(dictionary: JSONDictionary) {

@@ -14,7 +14,7 @@ enum WebserviceError: Error {
     case invalidURL
 }
 
-/// Small wrapper around URLSession for Activity Indicator
+/// Small wrapper around URLSession
 
 struct Webservice {
     
@@ -38,7 +38,7 @@ struct Webservice {
                 return
             }
             do {
-                let object = try JSONSerialization.jsonObject(with: data, options: [])
+                let object = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
                 guard let dictionary = object as? JSONDictionary else {
                     DispatchQueue.main.async {
                         completion(.error(error: WebserviceError.parseError))

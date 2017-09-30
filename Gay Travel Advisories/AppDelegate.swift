@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         CountriesManager.shared.getAdvisoryRegions()
         
+        if let splitViewController = window?.rootViewController as? UISplitViewController {
+            splitViewController.preferredDisplayMode = .allVisible
+        }
+        
         return true
     }
 

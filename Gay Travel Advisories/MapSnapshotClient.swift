@@ -10,6 +10,8 @@ import MapKit
 
 struct MapSnapshotClient {
     
+    static fileprivate var imageCache = [String: UIImage]()
+    
     static var options: MKMapSnapshotOptions = {
         let options = MKMapSnapshotOptions()
         options.mapType = .standard
@@ -23,6 +25,19 @@ struct MapSnapshotClient {
             completion(nil)
             return
         }
+        
+        // Check if in memory
+        guard MapSnapshotClient.imageCache[country.abbreviation] == nil else {
+            completion(MapSnapshotClient.imageCache[country.abbreviation]!)
+            return
+        }
+        
+        // Check if it is on disk
+        if let data = FileStorage.cache["\(country.abbreviation)Image"] {
+            completion(UIImage(data: data))
+        }
+        
+        // Get from MKMapSnapshotter
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(name) { (placemarks, _) in
             DispatchQueue.main.async {
@@ -35,10 +50,12 @@ struct MapSnapshotClient {
                 let snapshotter = MKMapSnapshotter(options: MapSnapshotClient.options)
                 snapshotter.start { (snapshot, _) in
                     completion(snapshot?.image)
+                    if let image = snapshot?.image {
+                        MapSnapshotClient.imageCache[country.abbreviation] = image
+                        FileStorage.cache["\(country.abbreviation)Image"] = UIImagePNGRepresentation(image)
+                    }
                 }
-                
             }
-            
         }
     }
 }

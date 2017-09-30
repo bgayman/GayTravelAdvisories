@@ -32,6 +32,8 @@ class TripTableViewCell: UITableViewCell {
         datesLabel.font = UIFont.app_font(style: .caption1, weight: UIFont.Weight.medium)
         datesLabel.numberOfLines = 0
         
+        selectionStyle = .none
+        
         travelAdvisoryButton.tintColor = .app_pink
     }
 

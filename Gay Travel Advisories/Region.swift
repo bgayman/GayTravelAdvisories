@@ -23,20 +23,3 @@ extension Region {
     }
 }
 
-
-struct Country {
-    
-    let abbreviation: String
-    
-    var detailLink: URL? {
-        return URL(string: "https://www.scruff.com/gaytravel/advisories/\(abbreviation)/index.json")
-    }
-    
-    var flagImageLink: URL? {
-        return URL(string: "https://bradgayman.com/Flags/flags/128/\(displayName?.replacingOccurrences(of: " ", with: "-") ?? "").png")
-    }
-    
-    var displayName: String? {
-        return Locale.current.localizedString(forRegionCode: abbreviation)
-    }
-}

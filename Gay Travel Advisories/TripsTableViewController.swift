@@ -73,7 +73,15 @@ class TripsTableViewController: UITableViewController {
               let cell = tableView.cellForRow(at: indexPath) as? TripTableViewCell,
               let trip = cell.trip else { return  }
         let advisoryDetailViewController = AdvisoryDetailViewController(country: trip.country)
-        navigationController?.pushViewController(advisoryDetailViewController, animated: true)
+        if tabBarController?.splitViewController != nil {
+           
+            let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
+            tabBarController?.splitViewController?.showDetailViewController(navigationController, sender: nil)
+        }
+        else {
+            navigationController?.pushViewController(advisoryDetailViewController, animated: true)
+        }
+        
     }
 
     // MARK: - UITableViewDataSource / UITableViewDelegate
@@ -87,6 +95,16 @@ class TripsTableViewController: UITableViewController {
         cell.trip = trip
         cell.travelAdvisoryButton.addTarget(self, action: #selector(self.didPressTravelAdvisory(_:)), for: .touchUpInside)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (_, indexPath) in
+            let trip = TripManager.shared.trips[indexPath.row]
+            TripManager.shared.remove(trip)
+            self?.tableView.deleteRows(at: [indexPath], with: .left)
+            
+        }
+        return [delete]
     }
 
 }
