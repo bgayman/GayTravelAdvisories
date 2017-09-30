@@ -36,6 +36,7 @@ class CountryPickerViewController: UIViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.searchBar.tintColor = .app_orange
+        searchController.searchBar.keyboardAppearance = .dark
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         (UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]) ).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]

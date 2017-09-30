@@ -123,5 +123,12 @@ extension AdvisoriesTableViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
+        
+        // Hack to get scroll view to layout correctly after committing
+        if let viewControllerToCommit = viewControllerToCommit as? AdvisoryDetailViewController {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                viewControllerToCommit.tableView.reloadData()
+            }
+        }
     }
 }

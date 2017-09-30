@@ -7,6 +7,7 @@
 //
 
 import MapKit
+import Contacts
 
 struct MapSnapshotClient {
     
@@ -37,9 +38,13 @@ struct MapSnapshotClient {
             completion(UIImage(data: data))
         }
         
+        // `CLGeocoder` places "Grenada" in New Jersey if `CNPostalAddressCountryKey` is added
+        // Other countries are misplaced if `CNPostalAddressCountryKey` is not added
+        let dictionary = name == "Grenada" ? [CNPostalAddressISOCountryCodeKey: country.abbreviation.uppercased()] : [CNPostalAddressCountryKey: name, CNPostalAddressISOCountryCodeKey: country.abbreviation.uppercased()]
+        
         // Get from MKMapSnapshotter
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(name) { (placemarks, _) in
+        geoCoder.geocodeAddressDictionary(dictionary) { (placemarks, _) in
             DispatchQueue.main.async {
                 guard let placemark = placemarks?.first,
                       let coordinates = placemark.location?.coordinate else {

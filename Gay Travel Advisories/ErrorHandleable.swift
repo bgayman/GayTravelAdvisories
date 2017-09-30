@@ -14,11 +14,8 @@ protocol ErrorHandleable: class {
 
 extension ErrorHandleable where Self: UIViewController {
     func handle(_ error: Error?) {
-        if #available(iOS 10.0, *)
-        {
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(.error)
-        }
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
         let alert = UIAlertController(error: error)
         alert.view.tintColor = .app_pink
         present(alert, animated: true)

@@ -126,6 +126,12 @@ final class TripsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? TripTableViewCell else { return }
+        
+        // Selection isn't possible in cells but tapping advisory button is
+        // so bounce button to indicate 
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.warning)
+        
         cell.travelAdvisoryButton.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.0, options: [], animations: {
             cell.travelAdvisoryButton.transform = .identity

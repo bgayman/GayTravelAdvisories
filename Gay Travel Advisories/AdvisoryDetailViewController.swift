@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreImage
 
 // MARK: - AdvisoryDetailViewController
 class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
@@ -16,6 +15,7 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     fileprivate let country: Country
     fileprivate var travelAdvisory: TravelAdvisory?
     fileprivate var travelAdvisoryViewModel: TravelAdvisoryViewModel?
+    fileprivate let headerHeightScaleFactor: CGFloat = 0.33
     
     override var previewActionItems: [UIPreviewActionItem] {
         let shareActionItem = UIPreviewAction(title: "Share", style: .default) { _, viewController in
@@ -36,10 +36,8 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
         return actionBarButtonItem
     }()
     
-    let ciContext = CIContext()
-    
     // MARK: - Outlets
-    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet fileprivate var tableHeaderView: UIView!
     @IBOutlet fileprivate weak var mapImageView: UIImageView!
     @IBOutlet fileprivate weak var flagImageView: UIImageView!
@@ -65,6 +63,11 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
         setupUI()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableHeaderView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: view.bounds.height * headerHeightScaleFactor)
+    }
+    
     // MARK: - Setup
     private func setupUI() {
         navigationController?.navigationBar.barTintColor = .black
@@ -85,6 +88,7 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
         
         tableView.backgroundColor = .clear
         tableView.tableHeaderView = tableHeaderView
+        
         tableHeaderView.backgroundColor = .app_black
         tableView.estimatedRowHeight = 150.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -121,13 +125,14 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     fileprivate func getFlagImage() {
         ImageClient.getImage(at: country.flagImageLink) { (image) in
             self.flagImageView.image = image
+            self.perform(#selector(self.flashFlag), with: nil, afterDelay: 1.5)
         }
     }
     
     fileprivate func getMapImage() {
-        let size = CGSize(width: UIScreen.main.bounds.width, height: 250.0)
+        let size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * headerHeightScaleFactor)
         MapSnapshotClient.getSnapshot(of: country, size: size) { (image) in
-            self.mapImageView.image = self.applyAppColorFilter(to: image)
+            self.mapImageView.image = image?.applyAppColorFilter(with: .app_purple)
             self.mapActivityIndicator.stopAnimating()
         }
     }
@@ -142,12 +147,10 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     }
     
     // MARK: - Helpers
-    private func applyAppColorFilter(to image: UIImage?) -> UIImage? {
-        guard let image = image,
-              let ciImage = CIImage(image: image) else { return nil }
-        let imageAppColors = ciImage.applyingFilter("CIColorInvert", parameters: [:])
-        guard let cgImage = ciContext.createCGImage(imageAppColors, from: imageAppColors.extent) else { return nil }
-        return UIImage(cgImage: cgImage)
+    @objc
+    fileprivate func flashFlag() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.flashFlag), object: nil)
+        flagImageView.flash()
     }
 }
 
