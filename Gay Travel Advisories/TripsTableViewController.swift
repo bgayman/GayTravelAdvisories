@@ -105,13 +105,23 @@ final class TripsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (_, indexPath) in
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (_, indexPath) in
             let trip = TripManager.shared.trips[indexPath.row]
             TripManager.shared.remove(trip)
-            self?.tableView.deleteRows(at: [indexPath], with: .left)
+            self.tableView.deleteRows(at: [indexPath], with: .left)
             
         }
-        return [delete]
+        
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (_, indexPath) in
+            let trip = TripManager.shared.trips[indexPath.row]
+            let addTripViewController = AddTripViewController(delegate: self, editTrip: trip)
+            let navigationController = UINavigationController(rootViewController: addTripViewController)
+            self.present(navigationController, animated: true)
+        }
+        
+        edit.backgroundColor = UIColor.app_orange
+        return [delete, edit]
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -148,6 +158,12 @@ extension TripsTableViewController: AddTripViewControllerDelegate {
     func addTripViewController(_ viewController: AddTripViewController, didFinishWith trip: Trip) {
         let oldValue = TripManager.shared.trips
         TripManager.shared.add(trip)
+        tableView.animateUpdate(oldDataSource: oldValue, newDataSource: TripManager.shared.trips)
+    }
+    
+    func addTripViewController(_ viewController: AddTripViewController, didEdit editTrip: Trip, with trip: Trip) {
+        let oldValue = TripManager.shared.trips
+        TripManager.shared.edit(editTrip, with: trip)
         tableView.animateUpdate(oldDataSource: oldValue, newDataSource: TripManager.shared.trips)
     }
 }

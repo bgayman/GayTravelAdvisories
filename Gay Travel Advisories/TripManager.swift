@@ -40,6 +40,12 @@ struct TripManager {
         saveToDisk()
     }
     
+    mutating func edit(_ editTrip: Trip, with trip: Trip) {
+        guard let index = trips.index(of: editTrip) else { return }
+        trips.remove(at: index)
+        add(trip)
+    }
+    
     private func saveToDisk() {
         guard let data = try? JSONSerialization.data(withJSONObject: self.trips.map { $0.dictionary }, options: [.prettyPrinted]) else { return }
         DispatchQueue.global(qos: .default).async {

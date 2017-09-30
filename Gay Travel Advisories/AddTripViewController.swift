@@ -11,6 +11,7 @@ import UIKit
 // MARK: - AddTripViewControllerDelegate
 protocol AddTripViewControllerDelegate: class {
     func addTripViewController(_ viewController: AddTripViewController, didFinishWith trip: Trip)
+    func addTripViewController(_ viewController: AddTripViewController, didEdit editTrip: Trip, with trip: Trip)
 }
 
 // MARK: - AddTripViewController
@@ -41,6 +42,8 @@ class AddTripViewController: UIViewController {
     var country: Country?
     @objc var departureDate: Date?
     @objc var returnDate: Date?
+    
+    var editTrip: Trip?
     var dateSelectionState = DateSelectionState.departureDate
     var trip: Trip? {
         guard let country = self.country,
@@ -61,8 +64,9 @@ class AddTripViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
-    init(delegate: AddTripViewControllerDelegate) {
+    init(delegate: AddTripViewControllerDelegate, editTrip: Trip? = nil) {
         self.delegate = delegate
+        self.editTrip = editTrip
         super.init(nibName: "\(AddTripViewController.self)", bundle: nil)
     }
     
@@ -101,6 +105,13 @@ class AddTripViewController: UIViewController {
         returnLabel.font = UIFont.app_font(style: .title1, weight: UIFont.Weight.heavy)
 
         returnTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSAttributedStringKey.foregroundColor: UIColor(white: 0.9, alpha: 0.9)])
+        
+        if let editTrip = self.editTrip {
+            country = editTrip.country
+            returnDate = editTrip.returnDate
+            departureDate = editTrip.departureDate
+            updateUI()
+        }
     }
     
     fileprivate func style(_ textField: UITextField) {
@@ -152,7 +163,12 @@ class AddTripViewController: UIViewController {
     @objc
     fileprivate func didPressSave(_ sender: UIBarButtonItem) {
         guard let trip = self.trip else { return }
-        delegate?.addTripViewController(self, didFinishWith: trip)
+        if let editTrip = self.editTrip {
+            delegate?.addTripViewController(self, didEdit: editTrip, with: trip)
+        }
+        else {
+            delegate?.addTripViewController(self, didFinishWith: trip)
+        }
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
         dismiss(animated: true)
