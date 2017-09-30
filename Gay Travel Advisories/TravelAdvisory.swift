@@ -16,12 +16,12 @@ struct TravelAdvisory {
     let name: String
     let iso: String
     let subname: String?
-    let legalCode: LegalCode?
+    let legalCode: LegalCode
     let prisonTerm: PrisonTerm
     let fine: Fine
     let penalty: Penalty
     let shariaLaw: ShariaLaw?
-    let propagandaLaw: PropagandaLaw?
+    let propagandaLaw: PropagandaLaw
     
     enum Keys: String {
         case id
@@ -71,10 +71,10 @@ extension TravelAdvisory {
     // MARK: - LegalCode
     struct LegalCode {
         
-        let title: String
+        let title: String?
         let titleCitation: String?
         let titleCitation2: String?
-        let body: String
+        let body: String?
         let bodyCitation: String?
         let bodyCitation2: String?
         let bodyCitation3: String?
@@ -179,11 +179,9 @@ extension TravelAdvisory {
             case isRecentlyDecriminalized = "recently_decriminalized"
         }
         
-        init?(dictionary: JSONDictionary) {
-            guard let title = dictionary[Keys.title.rawValue] as? String,
-                let body = dictionary[Keys.body.rawValue] as? String else { return nil }
-            self.title = title
-            self.body = body
+        init(dictionary: JSONDictionary) {
+            self.title = dictionary[Keys.title.rawValue] as? String
+            self.body = dictionary[Keys.body.rawValue] as? String
             self.titleCitation = dictionary[Keys.titleCitation.rawValue] as? String
             self.titleCitation2 = dictionary[Keys.titleCitation2.rawValue] as? String
             self.bodyCitation = dictionary[Keys.bodyCitation.rawValue] as? String
@@ -409,7 +407,7 @@ extension TravelAdvisory {
     struct PropagandaLaw {
         
         let isPropagandaLawUnderConsideration: Bool?
-        let title: String
+        let title: String?
         let titleCitation: String?
         let body: String?
         let bodyCitation: String?
@@ -424,9 +422,8 @@ extension TravelAdvisory {
             case ilgaComments = "propaganda_law_ilga_comments"
         }
         
-        init?(dictionary: JSONDictionary) {
-            guard let title = dictionary[Keys.title.rawValue] as? String else { return nil }
-            self.title = title
+        init(dictionary: JSONDictionary) {
+            self.title = dictionary[Keys.title.rawValue] as? String
             self.isPropagandaLawUnderConsideration = dictionary[Keys.isPropagandaLawUnderConsideration.rawValue] as? Bool
             self.titleCitation = dictionary[Keys.titleCitation.rawValue] as? String
             self.body = dictionary[Keys.body.rawValue] as? String

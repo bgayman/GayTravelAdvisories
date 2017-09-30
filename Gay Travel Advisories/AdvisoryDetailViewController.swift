@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreImage
 
 // MARK: - AdvisoryDetailViewController
 class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
@@ -34,6 +35,8 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
         let actionBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.didPressAction(_:)))
         return actionBarButtonItem
     }()
+    
+    let ciContext = CIContext()
     
     // MARK: - Outlets
     @IBOutlet fileprivate weak var tableView: UITableView!
@@ -124,7 +127,7 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     fileprivate func getMapImage() {
         let size = CGSize(width: UIScreen.main.bounds.width, height: 250.0)
         MapSnapshotClient.getSnapshot(of: country, size: size) { (image) in
-            self.mapImageView.image = image
+            self.mapImageView.image = self.applyAppColorFilter(to: image)
             self.mapActivityIndicator.stopAnimating()
         }
     }
@@ -134,7 +137,17 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     fileprivate func didPressAction(_ sender: UIBarButtonItem) {
         guard let shareLink = country.shareLink else { return }
         let activityViewContoller = UIActivityViewController(activityItems: [shareLink], applicationActivities: nil)
+        activityViewContoller.popoverPresentationController?.barButtonItem = sender
         present(activityViewContoller, animated: true)
+    }
+    
+    // MARK: - Helpers
+    private func applyAppColorFilter(to image: UIImage?) -> UIImage? {
+        guard let image = image,
+              let ciImage = CIImage(image: image) else { return nil }
+        let imageAppColors = ciImage.applyingFilter("CIColorInvert", parameters: [:])
+        guard let cgImage = ciContext.createCGImage(imageAppColors, from: imageAppColors.extent) else { return nil }
+        return UIImage(cgImage: cgImage)
     }
 }
 
