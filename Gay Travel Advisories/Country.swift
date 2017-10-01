@@ -21,10 +21,23 @@ struct Country {
     }
     
     var shareLink: URL? {
-        return URL(string: "https://www.scruff.com/gaytravel/advisories/\(abbreviation.lowercased())/")
+        return URL(string: "https://www.scruff.com/gaytravel/advisories/\(abbreviation.lowercased())")
     }
     
     var displayName: String? {
         return Locale.current.localizedString(forRegionCode: abbreviation)
+    }
+}
+
+extension Country {
+    
+    init?(name: String?) {
+        guard let abbreviation = Locale.isoRegionCodes.first(where: { Locale.current.localizedString(forRegionCode: $0) == name }) else { return nil }
+        self = Country(abbreviation: abbreviation)
+    }
+    
+    init?(shareURL: URL?) {
+        guard let abbreviation = shareURL?.pathComponents.last else { return nil }
+        self = Country(abbreviation: abbreviation)
     }
 }

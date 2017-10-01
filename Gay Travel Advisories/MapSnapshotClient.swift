@@ -51,7 +51,7 @@ struct MapSnapshotClient {
                     completion(nil)
                         return
                 }
-                MapSnapshotClient.options.camera = MKMapCamera(lookingAtCenter: coordinates, fromDistance: 720000, pitch: 0, heading: 0)
+                MapSnapshotClient.options.camera = MKMapCamera(lookingAtCenter: coordinates, fromDistance: 1_000_000, pitch: 0, heading: 0)
                 let snapshotter = MKMapSnapshotter(options: MapSnapshotClient.options)
                 snapshotter.start { (snapshot, _) in
                     completion(snapshot?.image)

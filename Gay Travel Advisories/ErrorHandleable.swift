@@ -18,6 +18,7 @@ extension ErrorHandleable where Self: UIViewController {
         generator.notificationOccurred(.error)
         let alert = UIAlertController(error: error)
         alert.view.tintColor = .app_pink
+        alert.modalPresentationStyle = .overCurrentContext
         present(alert, animated: true)
     }
 }

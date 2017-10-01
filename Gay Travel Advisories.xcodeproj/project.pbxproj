@@ -11,6 +11,10 @@
 		CD1099E81F7FC76A00A1851D /* UIImageView+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1099E71F7FC76A00A1851D /* UIImageView+Application.swift */; };
 		CD16CAD21F7EF60100AD8B02 /* ErrorHandleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16CAD11F7EF60100AD8B02 /* ErrorHandleable.swift */; };
 		CD16CAD51F7EF6BA00AD8B02 /* UIAlertController+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16CAD41F7EF6BA00AD8B02 /* UIAlertController+Application.swift */; };
+		CD62BE731F804F290077F3BA /* CountriesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD62BE721F804F290077F3BA /* CountriesListTableViewCell.swift */; };
+		CD62BE761F80825E0077F3BA /* PoorConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD62BE751F80825E0077F3BA /* PoorConnectionView.swift */; };
+		CD62BE781F8087220077F3BA /* UINavigationController+PoorConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD62BE771F8087220077F3BA /* UINavigationController+PoorConnection.swift */; };
+		CD62BE7A1F80896A0077F3BA /* PoorConnectionShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD62BE791F80896A0077F3BA /* PoorConnectionShowable.swift */; };
 		CD80CA191F7F22B70096A1AC /* UITraitCollection+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */; };
 		CD80CA1B1F7F29BF0096A1AC /* VisualEffectTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD80CA1A1F7F29BF0096A1AC /* VisualEffectTransition.swift */; };
 		CD937A1F1F7F503000F745DE /* PinkTriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD937A1E1F7F503000F745DE /* PinkTriangleView.swift */; };
@@ -85,6 +89,10 @@
 		CD1099E71F7FC76A00A1851D /* UIImageView+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Application.swift"; sourceTree = "<group>"; };
 		CD16CAD11F7EF60100AD8B02 /* ErrorHandleable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandleable.swift; sourceTree = "<group>"; };
 		CD16CAD41F7EF6BA00AD8B02 /* UIAlertController+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Application.swift"; sourceTree = "<group>"; };
+		CD62BE721F804F290077F3BA /* CountriesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesListTableViewCell.swift; sourceTree = "<group>"; };
+		CD62BE751F80825E0077F3BA /* PoorConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoorConnectionView.swift; sourceTree = "<group>"; };
+		CD62BE771F8087220077F3BA /* UINavigationController+PoorConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+PoorConnection.swift"; sourceTree = "<group>"; };
+		CD62BE791F80896A0077F3BA /* PoorConnectionShowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoorConnectionShowable.swift; sourceTree = "<group>"; };
 		CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITraitCollection+Application.swift"; sourceTree = "<group>"; };
 		CD80CA1A1F7F29BF0096A1AC /* VisualEffectTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectTransition.swift; sourceTree = "<group>"; };
 		CD937A1E1F7F503000F745DE /* PinkTriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkTriangleView.swift; sourceTree = "<group>"; };
@@ -161,8 +169,45 @@
 			isa = PBXGroup;
 			children = (
 				CD16CAD11F7EF60100AD8B02 /* ErrorHandleable.swift */,
+				CD62BE791F80896A0077F3BA /* PoorConnectionShowable.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		CD62BE6F1F804EB40077F3BA /* Trip Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CDBC4E671F7DA58F001BB077 /* TripsTableViewController.swift */,
+				CDDB27DB1F7DD5640077D603 /* TripTableViewCells */,
+				CDDB27E21F7DE5A90077D603 /* Trip Modals */,
+			);
+			name = "Trip Controllers";
+			sourceTree = "<group>";
+		};
+		CD62BE701F804EE90077F3BA /* Advisories Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CD62BE711F804EFF0077F3BA /* Countries List */,
+				CDD54D671F7E6D4F00D39D33 /* Advisory Detail */,
+			);
+			name = "Advisories Controllers";
+			sourceTree = "<group>";
+		};
+		CD62BE711F804EFF0077F3BA /* Countries List */ = {
+			isa = PBXGroup;
+			children = (
+				CDBC4E6C1F7DACEB001BB077 /* AdvisoriesTableViewController.swift */,
+				CD62BE741F804F310077F3BA /* List Cells */,
+			);
+			name = "Countries List";
+			sourceTree = "<group>";
+		};
+		CD62BE741F804F310077F3BA /* List Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CD62BE721F804F290077F3BA /* CountriesListTableViewCell.swift */,
+			);
+			name = "List Cells";
 			sourceTree = "<group>";
 		};
 		CD80CA1C1F7F2C7D0096A1AC /* Animation Controllers */ = {
@@ -177,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				CD937A1E1F7F503000F745DE /* PinkTriangleView.swift */,
+				CD62BE751F80825E0077F3BA /* PoorConnectionView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -203,6 +249,7 @@
 				CD80CA181F7F22B70096A1AC /* UITraitCollection+Application.swift */,
 				CD1099E51F7FC6D200A1851D /* UIImage+Application.swift */,
 				CD1099E71F7FC76A00A1851D /* UIImageView+Application.swift */,
+				CD62BE771F8087220077F3BA /* UINavigationController+PoorConnection.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -211,11 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				CD80CA1C1F7F2C7D0096A1AC /* Animation Controllers */,
-				CDBC4E671F7DA58F001BB077 /* TripsTableViewController.swift */,
-				CDDB27DB1F7DD5640077D603 /* TripTableViewCells */,
-				CDBC4E6C1F7DACEB001BB077 /* AdvisoriesTableViewController.swift */,
-				CDD54D671F7E6D4F00D39D33 /* Advisory Detail */,
-				CDDB27E21F7DE5A90077D603 /* Trip Modals */,
+				CD62BE6F1F804EB40077F3BA /* Trip Controllers */,
+				CD62BE701F804EE90077F3BA /* Advisories Controllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -467,6 +511,7 @@
 				CDBC4E651F7DA170001BB077 /* UIColor+Application.swift in Sources */,
 				CDD54D6B1F7E769E00D39D33 /* MapSnapshotClient.swift in Sources */,
 				CDDB27E51F7DE5D50077D603 /* DatePickerViewController.swift in Sources */,
+				CD62BE781F8087220077F3BA /* UINavigationController+PoorConnection.swift in Sources */,
 				CD1099E81F7FC76A00A1851D /* UIImageView+Application.swift in Sources */,
 				CDDB27D31F7DC82B0077D603 /* Trip.swift in Sources */,
 				CDDB27DE1F7DD9490077D603 /* AddTripViewController.swift in Sources */,
@@ -477,6 +522,7 @@
 				CD80CA1B1F7F29BF0096A1AC /* VisualEffectTransition.swift in Sources */,
 				CD80CA191F7F22B70096A1AC /* UITraitCollection+Application.swift in Sources */,
 				CDD0143F1F7CA5A300DD1940 /* TravelAdvisoryClient.swift in Sources */,
+				CD62BE7A1F80896A0077F3BA /* PoorConnectionShowable.swift in Sources */,
 				CDD014251F7C7FF900DD1940 /* NetworkActivityIndicatorManager.swift in Sources */,
 				CDBC4E6B1F7DA8C0001BB077 /* UITabBarController+StatusBar.swift in Sources */,
 				CDD0143D1F7C917F00DD1940 /* TravelAdvisory.swift in Sources */,
@@ -489,8 +535,10 @@
 				CDDB27E11F7DDF860077D603 /* UITableView+Animations.swift in Sources */,
 				CDD014271F7C818600DD1940 /* Webservice.swift in Sources */,
 				CDD54D611F7E648000D39D33 /* CountryPickerViewController.swift in Sources */,
+				CD62BE731F804F290077F3BA /* CountriesListTableViewCell.swift in Sources */,
 				CDBC4E681F7DA58F001BB077 /* TripsTableViewController.swift in Sources */,
 				CD16CAD21F7EF60100AD8B02 /* ErrorHandleable.swift in Sources */,
+				CD62BE761F80825E0077F3BA /* PoorConnectionView.swift in Sources */,
 				CD937A1F1F7F503000F745DE /* PinkTriangleView.swift in Sources */,
 				CD1099E61F7FC6D200A1851D /* UIImage+Application.swift in Sources */,
 				CDDB27E81F7DF5100077D603 /* UIView+Application.swift in Sources */,

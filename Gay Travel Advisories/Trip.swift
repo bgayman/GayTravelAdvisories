@@ -26,6 +26,8 @@ struct Trip {
         return dateIntervalFormatter
     }()
     
+    static let dateFormatter = DateFormatter()
+    
     let country: Country
     let departureDate: Date
     let returnDate: Date
@@ -39,6 +41,18 @@ struct Trip {
     var dateIntervalString: String {
         return Trip.dateIntervalFormatter.string(from: departureDate, to: returnDate)
     }
+    
+    var shareString: String {
+        return [country.displayName,
+                Trip.dateFormatter.string(from: departureDate),
+                Trip.dateFormatter.string(from: returnDate)]
+            .flatMap { $0 }
+            .joined(separator: "\n")
+    }
+    
+    var hasAdvisory: Bool {
+        return CountriesManager.shared.allAbbreviations.contains(country.abbreviation.lowercased())
+    }
 }
 
 // MARK: - Init
@@ -51,6 +65,17 @@ extension Trip {
         self.country = Country(abbreviation: countryValue)
         self.departureDate = Date(timeIntervalSince1970: departureDateValue)
         self.returnDate = Date(timeIntervalSince1970: returnDateValue)
+    }
+    
+    init?(string: String) {
+        let components = string.components(separatedBy: "\n")
+        guard components.count == 3,
+              let country = Country(name: components.first),
+              let departureDate = Trip.dateFormatter.date(from: components[1]),
+              let returnDate = Trip.dateFormatter.date(from: components[2]) else { return nil }
+        self.country = country
+        self.departureDate = departureDate
+        self.returnDate = returnDate
     }
 }
 

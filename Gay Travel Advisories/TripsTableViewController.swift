@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 // MARK: - TripsTableViewController
-final class TripsTableViewController: UITableViewController {
+final class TripsTableViewController: UITableViewController, PoorConnectionShowable, ErrorHandleable {
 
     // MARK: - Properties
     @objc lazy var addBarButtonItem: UIBarButtonItem = {
         let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.didPressAdd(_:)))
         return addBarButtonItem
+    }()
+    
+    @objc lazy var refresh: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
+        return refresh
     }()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -52,16 +59,29 @@ final class TripsTableViewController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            tableView.dragDelegate = self
+            tableView.dragInteractionEnabled = true
+            navigationController?.navigationBar.addInteraction(UIDropInteraction(delegate: self))
         }
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
         }
+        
+        refreshControl = refresh
     }
     
     private func setupNotifications() {
         NotificationCenter.default.when(.CountriesManagerDidUpdate) { [weak self] (_) in
             self?.tableView.reloadData()
+        }
+        
+        NotificationCenter.default.when(.WebserviceDidFailToConnect) { [weak self] (_) in
+            self?.showPoorConnection()
+        }
+        
+        NotificationCenter.default.when(.WebserviceDidConnect) { [weak self] (_) in
+            self?.hidePoorConnection()
         }
     }
     
@@ -90,6 +110,19 @@ final class TripsTableViewController: UITableViewController {
         }
         
     }
+    
+    @objc
+    private func didRefresh(_ sender: UIRefreshControl) {
+        CountriesManager.shared.getAdvisoryRegions { (result) in
+            sender.endRefreshing()
+            switch result {
+            case .error(let error):
+                self.handle(error)
+            case .success:
+                break
+            }
+        }
+    }
 
     // MARK: - UITableViewDataSource / UITableViewDelegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,9 +148,7 @@ final class TripsTableViewController: UITableViewController {
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (_, indexPath) in
             let trip = TripManager.shared.trips[indexPath.row]
-            let addTripViewController = AddTripViewController(delegate: self, editTrip: trip)
-            let navigationController = UINavigationController(rootViewController: addTripViewController)
-            self.present(navigationController, animated: true)
+            self.showEdit(for: trip)
         }
         
         edit.backgroundColor = UIColor.app_orange
@@ -137,7 +168,59 @@ final class TripsTableViewController: UITableViewController {
             cell.travelAdvisoryButton.transform = .identity
         })
     }
+    
+    // MARK: - Helpers
+    fileprivate func showEdit(for trip: Trip) {
+        let addTripViewController = AddTripViewController(delegate: self, editTrip: trip)
+        let navigationController = UINavigationController(rootViewController: addTripViewController)
+        navigationController.modalPresentationStyle = .overCurrentContext
+        self.present(navigationController, animated: true)
+    }
 
+}
+
+@available(iOS 11.0, *)
+extension TripsTableViewController: UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let trip = TripManager.shared.trips[indexPath.row]
+        let string = trip.shareString as NSString
+        let dragStringItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+        var dragURLItem: UIDragItem? = nil
+        if trip.hasAdvisory,
+           let url = trip.country.shareLink as NSURL? {
+            dragURLItem = UIDragItem(itemProvider: NSItemProvider(object: url))
+        }
+        return [dragURLItem, dragStringItem].flatMap { $0 }
+    }
+    
+}
+
+// MARK: - UIDropInteractionDelegate
+@available(iOS 11.0, *)
+extension TripsTableViewController: UIDropInteractionDelegate {
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String])
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String]) {
+            return UIDropProposal(operation: .copy)
+        }
+        return UIDropProposal(operation: .forbidden)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        session.loadObjects(ofClass: NSString.self) { [unowned self] (itemProviders) in
+            
+            // `NSItemProvider` allows both URLs and Strings to be cast to `NSString`
+            // So filtering out by looking for "http" kind of crude but working for now.
+            guard let itemProvider = itemProviders.flatMap({ $0 as? NSString }).filter({ !$0.contains("http") }).first,
+                  let trip = Trip(string: itemProvider as String) else { return }
+            self.showEdit(for: trip)
+        }
+    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
@@ -173,3 +256,4 @@ extension TripsTableViewController: AddTripViewControllerDelegate {
         tableView.animateUpdate(oldDataSource: oldValue, newDataSource: TripManager.shared.trips)
     }
 }
+

@@ -114,12 +114,6 @@ class CountryPickerViewController: UIViewController {
     fileprivate func didPressCancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-    
-    
-    fileprivate func country(for name: String) -> Country? {
-        guard let abbreviation = Locale.isoRegionCodes.first(where: { Locale.current.localizedString(forRegionCode: $0) == name }) else { return nil }
-        return Country(abbreviation: abbreviation)
-    }
 }
 
 // MARK: - UITableViewDataSource / UITableViewDelegate
@@ -156,7 +150,7 @@ extension CountryPickerViewController: UITableViewDataSource, UITableViewDelegat
         case .searching:
             name = searchResults[indexPath.row]
         }
-        guard let country = country(for: name) else { return }
+        guard let country = Country(name: name) else { return }
         selectedName = name
         shouldAnimateUpdate = false
         tableView.reloadRows(at: [indexPath], with: .none)

@@ -18,7 +18,7 @@ class TripTableViewCell: UITableViewCell {
         didSet {
             destinationLabel.text = trip?.country.displayName
             datesLabel.text = trip?.dateIntervalString
-            travelAdvisoryButton.isHidden = CountriesManager.shared.allAbbreviations.contains(trip?.country.abbreviation.lowercased() ?? "") == false
+            travelAdvisoryButton.isHidden = trip?.hasAdvisory == false
         }
     }
     
@@ -35,6 +35,22 @@ class TripTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         travelAdvisoryButton.tintColor = .app_pink
+    }
+    
+    @available(iOS 11.0, *)
+    override func dragStateDidChange(_ dragState: UITableViewCellDragState) {
+        super.dragStateDidChange(dragState)
+        switch dragState {
+        case .none:
+            destinationLabel.textColor = .white
+            datesLabel.textColor = .white
+        case .lifting:
+            destinationLabel.textColor = .black
+            datesLabel.textColor = .black
+        case .dragging:
+            destinationLabel.textColor = .black
+            datesLabel.textColor = .black
+        }
     }
 
 }

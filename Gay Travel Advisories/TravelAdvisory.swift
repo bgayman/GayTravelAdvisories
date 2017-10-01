@@ -135,7 +135,7 @@ extension TravelAdvisory {
         }
         
         var lawStatusString: String? {
-            return isLawStatusUnclear == true ? "Law status is unclear." : nil
+            return isLawStatusUnclear == true ? "Law's status is unclear." : nil
         }
         
         var criminalizationUnderconsiderationString: String? {

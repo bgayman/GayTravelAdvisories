@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreFoundation
 
 enum WebserviceError: Error {
     case noData
@@ -27,10 +28,18 @@ struct Webservice {
             
             guard error == nil else {
                 DispatchQueue.main.async {
+                    let code = (error as NSError?)?.code
+                    if code == NSURLErrorNotConnectedToInternet ||
+                        code == NSURLErrorCannotConnectToHost ||
+                        code == NSURLErrorTimedOut ||
+                        code == NSURLErrorNetworkConnectionLost {
+                        NotificationCenter.default.post(name: .WebserviceDidFailToConnect, object: nil)
+                    }
                     completion(.error(error: error!))
                 }
                 return
             }
+            NotificationCenter.default.post(name: .WebserviceDidConnect, object: nil)
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(.error(error: WebserviceError.noData))

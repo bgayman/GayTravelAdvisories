@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreMotion
+import MobileCoreServices
 
 // MARK: - AdvisoryDetailEmptyViewController
 class AdvisoryDetailEmptyViewController: UIViewController {
@@ -93,6 +94,11 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        motionManager.stopDeviceMotionUpdates()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imageView.center = CGPoint(x: view.bounds.midX, y: -imageView.bounds.midY)
@@ -125,6 +131,7 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
+            view.addInteraction(UIDropInteraction(delegate: self))
         }
         
         view.backgroundColor = UIColor.app_black
@@ -190,5 +197,30 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         }
     }
     
+}
+
+@available(iOS 11.0, *)
+extension AdvisoryDetailEmptyViewController: UIDropInteractionDelegate {
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String])
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String]) {
+            return UIDropProposal(operation: .copy)
+        }
+        return UIDropProposal(operation: .forbidden)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        session.loadObjects(ofClass: NSURL.self) { [unowned self] (itemProviders) in
+            guard let itemProvider = itemProviders.first as? NSURL,
+                  let country = Country(shareURL: itemProvider as URL) else { return }
+            let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
+            let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
+            self.splitViewController?.showDetailViewController(navigationController, sender: nil)
+        }
+    }
 }
 

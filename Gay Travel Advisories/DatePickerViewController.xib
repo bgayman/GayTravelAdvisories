@@ -45,6 +45,9 @@
                                         </view>
                                     </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="IIN-g0-lmn"/>
+                                </constraints>
                                 <vibrancyEffect>
                                     <blurEffect style="dark"/>
                                 </vibrancyEffect>
@@ -108,7 +111,7 @@
                     </view>
                     <constraints>
                         <constraint firstItem="vbC-eW-jjw" firstAttribute="height" secondItem="aI4-Wv-LBT" secondAttribute="height" multiplier="0.5" id="Fs3-SK-aEI"/>
-                        <constraint firstItem="vbC-eW-jjw" firstAttribute="width" secondItem="aI4-Wv-LBT" secondAttribute="width" multiplier="0.8" id="xqa-et-aJe"/>
+                        <constraint firstItem="vbC-eW-jjw" firstAttribute="width" secondItem="aI4-Wv-LBT" secondAttribute="width" multiplier="0.8" priority="999" id="xqa-et-aJe"/>
                     </constraints>
                     <blurEffect style="dark"/>
                 </visualEffectView>

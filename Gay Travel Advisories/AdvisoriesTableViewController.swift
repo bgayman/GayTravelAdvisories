@@ -9,12 +9,18 @@
 import UIKit
 
 // MARK: - AdvisoriesTableViewController
-class AdvisoriesTableViewController: UITableViewController {
+class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowable, ErrorHandleable {
 
     // MARK: - Properties
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    @objc lazy var refresh: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
+        return refresh
+    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -46,16 +52,41 @@ class AdvisoriesTableViewController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            tableView.dragDelegate = self
         }
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
         }
+        
+        refreshControl = refresh
     }
     
     private func setupNotifications() {
         NotificationCenter.default.when(.CountriesManagerDidUpdate) { [weak self] (_) in
             self?.tableView.reloadData()
+        }
+        
+        NotificationCenter.default.when(.WebserviceDidFailToConnect) { [weak self] (_) in
+            self?.showPoorConnection()
+        }
+        
+        NotificationCenter.default.when(.WebserviceDidConnect) { [weak self] (_) in
+            self?.hidePoorConnection()
+        }
+    }
+    
+    // MARK: - Actions
+    @objc
+    private func didRefresh(_ sender: UIRefreshControl) {
+        CountriesManager.shared.getAdvisoryRegions { (result) in
+            sender.endRefreshing()
+            switch result {
+            case .error(let error):
+                self.handle(error)
+            case .success:
+                break
+            }
         }
     }
     
@@ -108,6 +139,21 @@ class AdvisoriesTableViewController: UITableViewController {
     }
 }
 
+// MARK: - UITableViewDragDelegate
+@available(iOS 11.0, *)
+extension AdvisoriesTableViewController: UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let region = CountriesManager.shared.regions?[indexPath.section]
+        let country = region?.countries[indexPath.row]
+        guard let url = country?.shareLink as NSURL? else { return [] }
+        let dragURLItem = UIDragItem(itemProvider: NSItemProvider(object: url))
+        return [dragURLItem]
+    }
+    
+}
+
+// MARK: - UIViewControllerPreviewingDelegate
 extension AdvisoriesTableViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {

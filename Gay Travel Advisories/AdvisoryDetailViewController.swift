@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 // MARK: - AdvisoryDetailViewController
 class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
@@ -77,6 +78,7 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
         
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
+            view.addInteraction(UIDropInteraction(delegate: self))
         }
         
         view.backgroundColor = UIColor.app_black
@@ -194,5 +196,30 @@ extension AdvisoryDetailViewController: UITableViewDataSource, UITableViewDelega
             cell.attributedText = text
         }
         return cell
+    }
+}
+
+@available(iOS 11.0, *)
+extension AdvisoryDetailViewController: UIDropInteractionDelegate {
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String])
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String]) {
+            return UIDropProposal(operation: .copy)
+        }
+        return UIDropProposal(operation: .forbidden)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        session.loadObjects(ofClass: NSURL.self) { [unowned self] (itemProviders) in
+            guard let itemProvider = itemProviders.first as? NSURL,
+                let country = Country(shareURL: itemProvider as URL) else { return }
+            let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
+            let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
+            self.splitViewController?.showDetailViewController(navigationController, sender: nil)
+        }
     }
 }
