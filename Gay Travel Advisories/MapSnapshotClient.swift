@@ -37,7 +37,8 @@ struct MapSnapshotClient {
         }
         
         // Check if it is on disk
-        if let data = FileStorage.cache["\(country.abbreviation)Image"] {
+        let cachedData = FileStorage.cache["\(country.abbreviation)Image"]
+        if let data = cachedData {
             completion(UIImage(data: data))
         }
         
@@ -58,7 +59,16 @@ struct MapSnapshotClient {
                 MapSnapshotClient.options.camera = MKMapCamera(lookingAtCenter: coordinates, fromDistance: 1_000_000, pitch: 0, heading: 0)
                 let snapshotter = MKMapSnapshotter(options: MapSnapshotClient.options)
                 snapshotter.start { (snapshot, _) in
-                    completion(snapshot?.image)
+                    guard let image = snapshot?.image else {
+                        
+                        // Only return nil if image isn't cached
+                        if cachedData == nil {
+                            completion(nil)
+                        }
+                        
+                        return
+                    }
+                    completion(image)
                     if let image = snapshot?.image {
                         MapSnapshotClient.imageCache[country.abbreviation] = image
                         FileStorage.cache["\(country.abbreviation)Image"] = UIImagePNGRepresentation(image)
