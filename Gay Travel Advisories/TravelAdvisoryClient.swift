@@ -13,6 +13,7 @@ struct TravelAdvisoryClient {
     static func getTravelAdvisory(for country: Country, completion: @escaping (Result<TravelAdvisory>) -> Void) {
         guard let url = country.detailLink else {
             completion(.error(error: WebserviceError.invalidURL))
+            
             return
         }
         
@@ -23,6 +24,7 @@ struct TravelAdvisoryClient {
             case .success(let dictionary):
                 guard let travelAdvisory = TravelAdvisory(dictionary: dictionary) else {
                     completion(.error(error: WebserviceError.parseError))
+                    
                     return
                 }
                 completion(.success(response: travelAdvisory))

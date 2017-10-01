@@ -9,9 +9,9 @@
 import Foundation
 
 extension Notification.Name {
-    static let CountriesManagerDidUpdate = Notification.Name("CountriesManagerDidUpdate")
-    static let WebserviceDidFailToConnect = Notification.Name("WebserviceDidFailToConnect")
-    static let WebserviceDidConnect = Notification.Name("WebserviceDidConnect")
+    static let countriesManagerDidUpdate = Notification.Name("CountriesManagerDidUpdate")
+    static let webserviceDidFailToConnect = Notification.Name("WebserviceDidFailToConnect")
+    static let webserviceDidConnect = Notification.Name("WebserviceDidConnect")
 }
 
 extension NotificationCenter {

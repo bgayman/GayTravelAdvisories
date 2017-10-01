@@ -32,7 +32,7 @@ final class VisualEffectTransition: NSObject {
         super.init()
         
         if let view = view {
-            let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
+            let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_: )))
             view.addGestureRecognizer(pan)
         }
     }
@@ -51,7 +51,7 @@ final class VisualEffectTransition: NSObject {
             startLocation = location
             presentedVC?.dismiss(animated: true)
         case .changed:
-            guard (fromVC?.view.frame.origin.y ?? 0.0) + translation.y > 0.0,
+            guard(fromVC?.view.frame.origin.y ?? 0.0) + translation.y > 0.0,
                 let transitionContext = transitionContext else { return }
             fromVC?.view.frame.origin.y += translation.y
             transitionContext.updateInteractiveTransition(progress)
@@ -80,7 +80,7 @@ final class VisualEffectTransition: NSObject {
         
         UIView.animate(withDuration: TimeInterval(progress) * duration, animations: {
                 fromView?.frame = CGRect(x: 0.0, y: 0.0, width: transitionContext.containerView.bounds.width, height: transitionContext.containerView.bounds.height)
-            }, completion: { [unowned self] (_) in
+            }, completion: { [unowned self](_) in
                 self.transitionContext?.completeTransition(false)
         })
     }
@@ -124,6 +124,7 @@ extension VisualEffectTransition: UIViewControllerAnimatedTransitioning {
             
             guard let toVCVisualEffectView = toVC as? VisualEffectTransitionToViewProtocal else {
                 transitionContext.completeTransition(false)
+                
                 return
             }
             

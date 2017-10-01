@@ -43,7 +43,7 @@ class CountriesManager {
                 completion?(.error(error: error))
             case .success(let dictionary):
                 self.update(with: dictionary)
-                NotificationCenter.default.post(name: .CountriesManagerDidUpdate, object: nil)
+                NotificationCenter.default.post(name: .countriesManagerDidUpdate, object: nil)
                 completion?(.success(response: self.regions ?? []))
                 if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: [.prettyPrinted]) {
                     FileStorage.cache["\(Constants.advisoryIndexURL.hashValue)"] = data
@@ -77,7 +77,7 @@ extension CountriesManager {
     static func make(with data: Data) -> CountriesManager? {
         let countriesManager = CountriesManager()
         try? countriesManager.update(with: data)
+        
         return countriesManager
     }
 }
-

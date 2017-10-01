@@ -28,6 +28,7 @@ class PoorConnectionView: UIView {
         label.text = PoorConnectionView.descriptionText
         label.font = UIFont.app_font(style: .body, weight: .semibold)
         let descriptionHeight = label.sizeThatFits(CGSize(width: 320.0, height: CGFloat.greatestFiniteMagnitude)).height
+        
         return PoorConnectionView.cornerRadius * 2 + titleHeight + descriptionHeight + 2 * PoorConnectionView.spacing
     }
     
@@ -60,6 +61,7 @@ class PoorConnectionView: UIView {
         descriptionLabel.textColor = .white
         descriptionLabel.textAlignment = .center
         descriptionLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .vertical)
+        
         return descriptionLabel
     }()
     
@@ -75,6 +77,7 @@ class PoorConnectionView: UIView {
         stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16.0).isActive = true
         stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16.0).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -PoorConnectionView.cornerRadius - PoorConnectionView.spacing).isActive = true
+        
         return stackView
     }()
     
@@ -86,6 +89,7 @@ class PoorConnectionView: UIView {
         visualEffectView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         visualEffectView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         visualEffectView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
         return visualEffectView
     }()
 
@@ -120,7 +124,7 @@ class PoorConnectionView: UIView {
         UIView.animate(withDuration: 0.2, animations: { [unowned self] in
             self.visualEffectView.effect = nil
             self.stackView.alpha = 0.0
-        }) { [unowned self] (_) in
+        }) { [unowned self](_) in
             self.removeFromSuperview()
         }
     }

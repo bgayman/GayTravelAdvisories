@@ -33,17 +33,19 @@ struct Webservice {
                         code == NSURLErrorCannotConnectToHost ||
                         code == NSURLErrorTimedOut ||
                         code == NSURLErrorNetworkConnectionLost {
-                        NotificationCenter.default.post(name: .WebserviceDidFailToConnect, object: nil)
+                        NotificationCenter.default.post(name: .webserviceDidFailToConnect, object: nil)
                     }
                     completion(.error(error: error!))
                 }
+                
                 return
             }
-            NotificationCenter.default.post(name: .WebserviceDidConnect, object: nil)
+            NotificationCenter.default.post(name: .webserviceDidConnect, object: nil)
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(.error(error: WebserviceError.noData))
                 }
+                
                 return
             }
             do {
@@ -52,6 +54,7 @@ struct Webservice {
                     DispatchQueue.main.async {
                         completion(.error(error: WebserviceError.parseError))
                     }
+                    
                     return
                 }
                 DispatchQueue.main.async {

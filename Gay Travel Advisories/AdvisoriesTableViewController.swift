@@ -18,7 +18,8 @@ class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowab
     
     @objc lazy var refresh: UIRefreshControl = {
         let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
+        refresh.addTarget(self, action: #selector(self.didRefresh(_: )), for: .valueChanged)
+        
         return refresh
     }()
     
@@ -63,15 +64,15 @@ class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowab
     }
     
     private func setupNotifications() {
-        NotificationCenter.default.when(.CountriesManagerDidUpdate) { [weak self] (_) in
+        NotificationCenter.default.when(.countriesManagerDidUpdate) { [weak self] (_) in
             self?.tableView.reloadData()
         }
         
-        NotificationCenter.default.when(.WebserviceDidFailToConnect) { [weak self] (_) in
+        NotificationCenter.default.when(.webserviceDidFailToConnect) { [weak self] (_) in
             self?.showPoorConnection()
         }
         
-        NotificationCenter.default.when(.WebserviceDidConnect) { [weak self] (_) in
+        NotificationCenter.default.when(.webserviceDidConnect) { [weak self] (_) in
             self?.hidePoorConnection()
         }
     }
@@ -97,6 +98,7 @@ class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowab
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let region = CountriesManager.shared.regions?[section]
+        
         return region?.countries.count ?? 0
     }
 
@@ -110,11 +112,13 @@ class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowab
         cell.backgroundView?.backgroundColor = .clear
         cell.backgroundColor = .clear
         cell.accessoryType = .disclosureIndicator
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let region = CountriesManager.shared.regions?[section]
+        
         return region?.name
     }
 
@@ -148,6 +152,7 @@ extension AdvisoriesTableViewController: UITableViewDragDelegate {
         let country = region?.countries[indexPath.row]
         guard let url = country?.shareLink as NSURL? else { return [] }
         let dragURLItem = UIDragItem(itemProvider: NSItemProvider(object: url))
+        
         return [dragURLItem]
     }
     
@@ -164,6 +169,7 @@ extension AdvisoriesTableViewController: UIViewControllerPreviewingDelegate {
         previewingContext.sourceRect = rect
         let country = region.countries[indexPath.row]
         let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
+        
         return advisoryDetailViewController
     }
     

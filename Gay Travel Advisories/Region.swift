@@ -22,4 +22,3 @@ extension Region {
         self.countries = abbreviations.map(Country.init)
     }
 }
-

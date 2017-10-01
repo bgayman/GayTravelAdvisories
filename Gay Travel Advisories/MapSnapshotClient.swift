@@ -18,18 +18,21 @@ struct MapSnapshotClient {
         options.mapType = .standard
         options.showsPointsOfInterest = false
         options.scale = UIScreen.main.scale
+        
         return options
     }()
     
     static func getSnapshot(of country: Country, size: CGSize, completion: @escaping (UIImage?) -> ()) {
         guard let name = country.displayName else {
             completion(nil)
+            
             return
         }
         
         // Check if in memory
         guard MapSnapshotClient.imageCache[country.abbreviation] == nil else {
             completion(MapSnapshotClient.imageCache[country.abbreviation]!)
+            
             return
         }
         
@@ -49,6 +52,7 @@ struct MapSnapshotClient {
                 guard let placemark = placemarks?.first,
                       let coordinates = placemark.location?.coordinate else {
                     completion(nil)
+                        
                         return
                 }
                 MapSnapshotClient.options.camera = MKMapCamera(lookingAtCenter: coordinates, fromDistance: 1_000_000, pitch: 0, heading: 0)

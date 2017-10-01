@@ -14,13 +14,15 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
 
     // MARK: - Properties
     @objc lazy var addBarButtonItem: UIBarButtonItem = {
-        let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.didPressAdd(_:)))
+        let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.didPressAdd(_: )))
+        
         return addBarButtonItem
     }()
     
     @objc lazy var refresh: UIRefreshControl = {
         let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: #selector(self.didRefresh(_:)), for: .valueChanged)
+        refresh.addTarget(self, action: #selector(self.didRefresh(_: )), for: .valueChanged)
+        
         return refresh
     }()
     
@@ -72,15 +74,15 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
     }
     
     private func setupNotifications() {
-        NotificationCenter.default.when(.CountriesManagerDidUpdate) { [weak self] (_) in
+        NotificationCenter.default.when(.countriesManagerDidUpdate) { [weak self] (_) in
             self?.tableView.reloadData()
         }
         
-        NotificationCenter.default.when(.WebserviceDidFailToConnect) { [weak self] (_) in
+        NotificationCenter.default.when(.webserviceDidFailToConnect) { [weak self] (_) in
             self?.showPoorConnection()
         }
         
-        NotificationCenter.default.when(.WebserviceDidConnect) { [weak self] (_) in
+        NotificationCenter.default.when(.webserviceDidConnect) { [weak self] (_) in
             self?.hidePoorConnection()
         }
     }
@@ -133,7 +135,8 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TripTableViewCell
         let trip = TripManager.shared.trips[indexPath.row]
         cell.trip = trip
-        cell.travelAdvisoryButton.addTarget(self, action: #selector(self.didPressTravelAdvisory(_:)), for: .touchUpInside)
+        cell.travelAdvisoryButton.addTarget(self, action: #selector(self.didPressTravelAdvisory(_: )), for: .touchUpInside)
+        
         return cell
     }
     
@@ -152,6 +155,7 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
         }
         
         edit.backgroundColor = UIColor.app_orange
+        
         return [delete, edit]
     }
     
@@ -191,6 +195,7 @@ extension TripsTableViewController: UITableViewDragDelegate {
            let url = trip.country.shareLink as NSURL? {
             dragURLItem = UIDragItem(itemProvider: NSItemProvider(object: url))
         }
+        
         return [dragURLItem, dragStringItem].flatMap { $0 }
     }
     
@@ -208,6 +213,7 @@ extension TripsTableViewController: UIDropInteractionDelegate {
         if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String]) {
             return UIDropProposal(operation: .copy)
         }
+        
         return UIDropProposal(operation: .forbidden)
     }
     
@@ -234,6 +240,7 @@ extension TripsTableViewController: UIViewControllerPreviewingDelegate {
         previewingContext.sourceRect = rect
         let trip = TripManager.shared.trips[indexPath.row]
         let advisoryDetailViewController = AdvisoryDetailViewController(country: trip.country)
+        
         return advisoryDetailViewController
     }
     
@@ -256,4 +263,3 @@ extension TripsTableViewController: AddTripViewControllerDelegate {
         tableView.animateUpdate(oldDataSource: oldValue, newDataSource: TripManager.shared.trips)
     }
 }
-

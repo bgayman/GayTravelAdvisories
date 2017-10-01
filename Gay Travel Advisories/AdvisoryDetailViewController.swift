@@ -25,6 +25,7 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
             let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
             UIApplication.shared.keyWindow?.rootViewController?.present(controller, animated: true)
         }
+        
         return [shareActionItem]
     }
     
@@ -33,7 +34,8 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     }
     
     lazy var actionBarButtonItem: UIBarButtonItem = {
-        let actionBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.didPressAction(_:)))
+        let actionBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.didPressAction(_: )))
+        
         return actionBarButtonItem
     }()
     
@@ -195,6 +197,7 @@ extension AdvisoryDetailViewController: UITableViewDataSource, UITableViewDelega
         case .propagandaLaw(let text):
             cell.attributedText = text
         }
+        
         return cell
     }
 }
@@ -203,6 +206,7 @@ extension AdvisoryDetailViewController: UITableViewDataSource, UITableViewDelega
 extension AdvisoryDetailViewController: UIDropInteractionDelegate {
     
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        
         return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String])
     }
     
@@ -210,6 +214,7 @@ extension AdvisoryDetailViewController: UIDropInteractionDelegate {
         if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String]) {
             return UIDropProposal(operation: .copy)
         }
+        
         return UIDropProposal(operation: .forbidden)
     }
     

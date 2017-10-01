@@ -15,12 +15,14 @@ struct ImageClient {
     static func getImage(at url: URL?, completion: @escaping (UIImage?) -> ()) {
         guard let url = url else {
             completion(nil)
+            
             return
         }
         
         // Check if in memory
         guard ImageClient.imageCache[url] == nil else {
             completion(ImageClient.imageCache[url]!)
+            
             return
         }
         
@@ -37,6 +39,7 @@ struct ImageClient {
                 NetworkActivityIndicatorManager.shared.decrementIndicatorCount()
                 guard let data = data else {
                     completion(nil)
+                    
                     return
                 }
                 let image = UIImage(data: data)

@@ -35,6 +35,7 @@ class AddTripViewController: UIViewController {
     @objc static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
+        
         return dateFormatter
     }()
     
@@ -53,13 +54,15 @@ class AddTripViewController: UIViewController {
     }
     
     lazy fileprivate var saveBarButtonItem: UIBarButtonItem = {
-        let saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.didPressSave(_:)))
+        let saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.didPressSave(_: )))
         saveBarButtonItem.isEnabled = false
+        
         return saveBarButtonItem
     }()
     
     lazy fileprivate var cancelBarButtonItem: UIBarButtonItem = {
-        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didPressCancel(_:)))
+        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didPressCancel(_: )))
+        
         return cancelBarButtonItem
     }()
     
@@ -102,12 +105,14 @@ class AddTripViewController: UIViewController {
         departureTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSAttributedStringKey.foregroundColor: UIColor(white: 0.9, alpha: 0.9)])
         
         returnLabel.textColor = .white
+        
         returnLabel.font = UIFont.app_font(style: .title1, weight: UIFont.Weight.heavy)
 
         returnTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSAttributedStringKey.foregroundColor: UIColor(white: 0.9, alpha: 0.9)])
         
         if let editTrip = self.editTrip {
             country = editTrip.country
+            
             returnDate = editTrip.returnDate
             departureDate = editTrip.departureDate
             updateUI()
@@ -151,6 +156,7 @@ class AddTripViewController: UIViewController {
     @IBAction fileprivate func didPressReturn(_ sender: UIButton) {
         guard let departureDate = self.departureDate else {
             returnTextField.shakeNo()
+            
             return
         }
         dateSelectionState = .returnDate

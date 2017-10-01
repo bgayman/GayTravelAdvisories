@@ -23,6 +23,7 @@ class PinkTriangleView: UIView {
         path.addLine(to: CGPoint(x: bounds.maxX, y: 0.0))
         path.addLine(to: CGPoint(x: bounds.midX, y: bounds.maxY))
         path.close()
+        
         return path
     }
     
@@ -41,6 +42,7 @@ class PinkTriangleView: UIView {
         path.addLine(to: CGPoint(x: bounds.midX, y: -bounds.midY))
         path.addLine(to: CGPoint(x: 0.0, y: bounds.midY))
         path.close()
+        
         return path
     }
     
@@ -58,6 +60,7 @@ final class AttentionImageView: UIImageView {
         path.addLine(to: CGPoint(x: bounds.midX, y: bounds.midY - bottomInset))
         path.addLine(to: CGPoint(x: -bounds.midX, y: bounds.midY - bottomInset))
         path.close()
+        
         return path
     }
     

@@ -17,6 +17,7 @@ struct TripManager {
     static var shared: TripManager = {
         var shared = TripManager()
         shared.loadTripsFromDisk()
+        
         return shared
     }()
     

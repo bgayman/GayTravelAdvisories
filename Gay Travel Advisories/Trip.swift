@@ -23,6 +23,7 @@ struct Trip {
         var dateIntervalFormatter = DateIntervalFormatter()
         dateIntervalFormatter.dateStyle = .medium
         dateIntervalFormatter.timeStyle = .none
+        
         return dateIntervalFormatter
     }()
     
@@ -92,6 +93,7 @@ extension Trip: Comparable {
         if lhs.departureDate == rhs.departureDate {
             return lhs.country.abbreviation < rhs.country.abbreviation
         }
+        
         return lhs.departureDate < rhs.departureDate
     }
 }
@@ -102,4 +104,3 @@ extension Trip: Hashable {
         return country.abbreviation.hashValue ^ departureDate.hashValue ^ returnDate.hashValue
     }
 }
-

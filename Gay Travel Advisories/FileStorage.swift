@@ -13,6 +13,7 @@ struct FileStorage {
     static var cache: FileStorage = {
         var cache = FileStorage()
         cache.baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        
         return cache
     }()
     
@@ -21,6 +22,7 @@ struct FileStorage {
     subscript(key: String) -> Data? {
         get {
             let url = baseURL.appendingPathComponent(key)
+            
             return try? Data(contentsOf: url)
         }
         

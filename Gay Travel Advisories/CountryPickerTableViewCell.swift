@@ -30,6 +30,7 @@ class CountryPickerTableViewCell: UITableViewCell {
         let attribString = NSMutableAttributedString(string: name)
         let range = (name.lowercased() as NSString).range(of: searchString.lowercased())
         attribString.addAttributes([NSAttributedStringKey.foregroundColor: UIColor.app_purple], range: range)
+        
         return attribString
     }
 

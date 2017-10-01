@@ -209,6 +209,7 @@ struct TravelAdvisoryViewModel {
             .joined(separator: "\n\n")
         
         let attribString = NSMutableAttributedString(string: string, attributes: [NSAttributedStringKey.font: UIFont.app_font(style: .body, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.white])
+        
         return attribString
     }
     
@@ -223,6 +224,7 @@ struct TravelAdvisoryViewModel {
             .joined(separator: "\n\n")
         
         let attribString = NSMutableAttributedString(string: string, attributes: [NSAttributedStringKey.font: UIFont.app_font(style: .body, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.white])
+        
         return attribString
     }
     
@@ -240,6 +242,7 @@ struct TravelAdvisoryViewModel {
             .joined(separator: "\n\n")
         
         let attribString = NSMutableAttributedString(string: string, attributes: [NSAttributedStringKey.font: UIFont.app_font(style: .body, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.white])
+        
         return attribString
     }
     
@@ -252,6 +255,7 @@ struct TravelAdvisoryViewModel {
             .joined(separator: "\n\n")
         
         let attribString = NSMutableAttributedString(string: string, attributes: [NSAttributedStringKey.font: UIFont.app_font(style: .body, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.white])
+        
         return attribString
     }
     
@@ -267,6 +271,7 @@ struct TravelAdvisoryViewModel {
             .joined(separator: "\n\n")
         
         let attribString = NSMutableAttributedString(string: string, attributes: [NSAttributedStringKey.font: UIFont.app_font(style: .body, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.white])
+        
         return attribString
     }
 }

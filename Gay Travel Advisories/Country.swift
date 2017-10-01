@@ -17,7 +17,7 @@ struct Country {
     }
     
     var flagImageLink: URL? {
-        return URL(string: "https://bradgayman.com/Flags/flags/128/\(displayName?.replacingOccurrences(of: " ", with: "-") ?? "").png")
+        return URL(string: "https://bradgayman.com/Flags/flags/128/\(displayName?.replacingOccurrences(of: " ", with: " - ") ?? "").png")
     }
     
     var shareLink: URL? {

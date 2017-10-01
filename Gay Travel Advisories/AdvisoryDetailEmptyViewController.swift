@@ -18,12 +18,14 @@ class AdvisoryDetailEmptyViewController: UIViewController {
     
     lazy var dynamicAnimator: UIDynamicAnimator = {
         let dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
+        
         return dynamicAnimator
     }()
     
     lazy var gravity: UIGravityBehavior = {
         let gravity = UIGravityBehavior(items: pinkTriangleViews as [Any] + [self.imageView, self.descriptionLabel] as! [UIDynamicItem])
         gravity.magnitude = 2.0
+        
         return gravity
     }()
     
@@ -31,12 +33,14 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         let inset = UIEdgeInsets(top: -1000, left: -100, bottom: 0.0, right: -100)
         let collision = UICollisionBehavior(items: pinkTriangleViews as [Any] + [self.imageView, self.descriptionLabel] as! [UIDynamicItem])
         collision.setTranslatesReferenceBoundsIntoBoundary(with: inset)
+        
         return collision
     }()
     
     lazy var imageSnapBehavior: UISnapBehavior = {
         let imageSnapBehavior = UISnapBehavior(item: self.imageView, snapTo: self.view.center)
         imageSnapBehavior.damping = 0.2
+        
         return imageSnapBehavior
     }()
     
@@ -44,6 +48,7 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         let labelAttachmentBehavior = UIAttachmentBehavior.limitAttachment(with: self.imageView, offsetFromCenter: .zero, attachedTo: self.descriptionLabel, offsetFromCenter: .zero)
         labelAttachmentBehavior.length = self.imageView.bounds.midY + self.descriptionLabel.bounds.midY + 15.0
         labelAttachmentBehavior.damping = 0.2
+        
         return labelAttachmentBehavior
     }()
     
@@ -53,6 +58,7 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         itemBehavior.angularResistance = 6.0
         itemBehavior.resistance = 2.0
         itemBehavior.density = 4.0
+        
         return itemBehavior
     }()
     
@@ -60,11 +66,13 @@ class AdvisoryDetailEmptyViewController: UIViewController {
         let itemBehavior = UIDynamicItemBehavior(items: pinkTriangleViews)
         itemBehavior.allowsRotation = true
         itemBehavior.elasticity = 0.5
+        
         return itemBehavior
     }()
     
     lazy var pinkTriangleViews: [PinkTriangleView] = {
         let pinkTriangleViews = Array(0 ..< 100).map { _ in PinkTriangleView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)) }
+        
         return pinkTriangleViews
     }()
     
@@ -187,8 +195,8 @@ class AdvisoryDetailEmptyViewController: UIViewController {
             p.y = 0 - t
         }
         else if orientation == UIInterfaceOrientation.portraitUpsideDown {
-            p.x *= -1
-            p.y *= -1
+            p.x = p.x * -1
+            p.y = p.y * -1
         }
         
         let v = CGVector(dx: p.x, dy: 0 - p.y)
@@ -210,6 +218,7 @@ extension AdvisoryDetailEmptyViewController: UIDropInteractionDelegate {
         if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String]) {
             return UIDropProposal(operation: .copy)
         }
+        
         return UIDropProposal(operation: .forbidden)
     }
     
@@ -223,4 +232,3 @@ extension AdvisoryDetailEmptyViewController: UIDropInteractionDelegate {
         }
     }
 }
-

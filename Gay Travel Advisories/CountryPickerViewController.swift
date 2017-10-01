@@ -28,7 +28,8 @@ class CountryPickerViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: CountryPickerViewControllerDelegate?
     @objc lazy var cancelBarButtonItem: UIBarButtonItem = {
-        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didPressCancel(_:)))
+        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didPressCancel(_: )))
+        
         return cancelBarButtonItem
     }()
     
@@ -46,7 +47,8 @@ class CountryPickerViewController: UIViewController {
     
     @objc let dataSource: [String] = {
         let codes = Locale.isoRegionCodes
-        let names = codes.flatMap(Locale.current.localizedString(forRegionCode:)).sorted()
+        let names = codes.flatMap(Locale.current.localizedString(forRegionCode: )).sorted()
+        
         return ["--"] + names
     }()
     
@@ -55,10 +57,10 @@ class CountryPickerViewController: UIViewController {
     @objc var shouldAnimateUpdate = true
     
     var searchState: SearchState {
-        if searchController.isActive && !searchString.isEmpty
-        {
+        if searchController.isActive && !searchString.isEmpty {
             return .searching
         }
+        
         return .normal
     }
     
@@ -123,7 +125,6 @@ extension CountryPickerViewController: UITableViewDataSource, UITableViewDelegat
         return searchState == .normal ? dataSource.count : searchResults.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(CountryPickerTableViewCell.self)", for: indexPath) as! CountryPickerTableViewCell
         let name: String
@@ -138,6 +139,7 @@ extension CountryPickerViewController: UITableViewDataSource, UITableViewDelegat
         }
         cell.accessoryType = selectedName == name ? .checkmark : .none
         cell.tintColor = UIColor.app_purple
+        
         return cell
     }
     
@@ -175,4 +177,3 @@ extension CountryPickerViewController: UISearchResultsUpdating {
         }
     }
 }
-
