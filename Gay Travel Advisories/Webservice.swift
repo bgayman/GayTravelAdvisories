@@ -21,6 +21,7 @@ struct Webservice {
     
     static func dataTask(with request: URLRequest, completion: @escaping (Result<JSONDictionary>) -> Void) {
         NetworkActivityIndicatorManager.shared.incrementIndicatorCount()
+        URLSession.shared.configuration.timeoutIntervalForRequest = 30.0
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 NetworkActivityIndicatorManager.shared.decrementIndicatorCount()
