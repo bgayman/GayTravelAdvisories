@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 // MARK: - AdvisoriesTableViewController
 class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowable, ErrorHandleable {
@@ -28,6 +29,15 @@ class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowab
         super.viewDidLoad()
         setupUI()
         setupNotifications()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if navigationController?.poorConnectionView != nil ||
+            (tabBarController?.viewControllers?.first as? UINavigationController)?.poorConnectionView != nil {
+            navigationController?.poorConnectionView?.removeFromSuperview()
+            navigationController?.showPoorConnectionView()
+        }
     }
     
     deinit {
@@ -54,6 +64,8 @@ class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowab
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
             tableView.dragDelegate = self
+            tableView.dragInteractionEnabled = true
+            tabBarController?.tabBar.addInteraction(UIDropInteraction(delegate: self))
         }
         
         if traitCollection.forceTouchCapability == .available {
@@ -130,10 +142,15 @@ class AdvisoriesTableViewController: UITableViewController, PoorConnectionShowab
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let region = CountriesManager.shared.regions?[indexPath.section]
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let country = region?.countries[indexPath.row] else { return }
+        showAdvisory(for: country)
+    }
+    
+    // MARK: - Helpers
+    fileprivate func showAdvisory(for country: Country) {
         let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
         if tabBarController?.splitViewController != nil && tabBarController?.splitViewController?.traitCollection.isLargerDevice == true {
-            tableView.deselectRow(at: indexPath, animated: true)
             let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
             tabBarController?.splitViewController?.showDetailViewController(navigationController, sender: nil)
         }
@@ -175,12 +192,30 @@ extension AdvisoriesTableViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - UIDropInteractionDelegate
+@available(iOS 11.0, *)
+extension AdvisoriesTableViewController: UIDropInteractionDelegate {
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String])
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String]) {
+            return UIDropProposal(operation: .copy)
+        }
         
-        // Hack to get scroll view to layout correctly after committing
-        if let viewControllerToCommit = viewControllerToCommit as? AdvisoryDetailViewController {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                viewControllerToCommit.tableView.reloadData()
-            }
+        return UIDropProposal(operation: .forbidden)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        session.loadObjects(ofClass: NSURL.self) { [unowned self] (itemProviders) in
+            guard let itemProvider = itemProviders.flatMap({ $0 as? NSURL }).first,
+                let country = Country(shareURL: itemProvider as URL) else { return }
+            self.showAdvisory(for: country)
         }
     }
 }

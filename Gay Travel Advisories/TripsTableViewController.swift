@@ -12,6 +12,25 @@ import MobileCoreServices
 // MARK: - TripsTableViewController
 final class TripsTableViewController: UITableViewController, PoorConnectionShowable, ErrorHandleable {
 
+    // MARK: - Types
+    enum DropView {
+        case tabBar
+        case navigationBar
+        
+        init?(view: UIView?) {
+            if view is UINavigationBar == true {
+                self = .navigationBar
+            }
+            else if view is UITabBar == true {
+                self = .tabBar
+            }
+            else {
+                
+                return nil
+            }
+        }
+    }
+    
     // MARK: - Properties
     @objc lazy var addBarButtonItem: UIBarButtonItem = {
         let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.didPressAdd(_: )))
@@ -35,6 +54,14 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
         super.viewDidLoad()
         setupUI()
         setupNotifications()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if navigationController?.poorConnectionView != nil {
+            navigationController?.poorConnectionView?.removeFromSuperview()
+            navigationController?.showPoorConnectionView()
+        }
     }
     
     deinit {
@@ -64,6 +91,7 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
             tableView.dragDelegate = self
             tableView.dragInteractionEnabled = true
             navigationController?.navigationBar.addInteraction(UIDropInteraction(delegate: self))
+            tabBarController?.tabBar.addInteraction(UIDropInteraction(delegate: self))
         }
         
         if traitCollection.forceTouchCapability == .available {
@@ -102,15 +130,7 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
         guard let indexPath = tableView.indexPathForRow(at: location),
               let cell = tableView.cellForRow(at: indexPath) as? TripTableViewCell,
               let trip = cell.trip else { return  }
-        let advisoryDetailViewController = AdvisoryDetailViewController(country: trip.country)
-        if tabBarController?.splitViewController != nil && tabBarController?.splitViewController?.traitCollection.isLargerDevice == true {
-            let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
-            tabBarController?.splitViewController?.showDetailViewController(navigationController, sender: nil)
-        }
-        else {
-            navigationController?.pushViewController(advisoryDetailViewController, animated: true)
-        }
-        
+        showAdvisory(for: trip.country)
     }
     
     @objc
@@ -180,6 +200,18 @@ final class TripsTableViewController: UITableViewController, PoorConnectionShowa
         navigationController.modalPresentationStyle = .overCurrentContext
         self.present(navigationController, animated: true)
     }
+    
+    fileprivate func showAdvisory(for country: Country) {
+        let advisoryDetailViewController = AdvisoryDetailViewController(country: country)
+        if tabBarController?.splitViewController != nil &&
+           tabBarController?.splitViewController?.traitCollection.isLargerDevice == true {
+            let navigationController = UINavigationController(rootViewController: advisoryDetailViewController)
+            tabBarController?.splitViewController?.showDetailViewController(navigationController, sender: nil)
+        }
+        else {
+            navigationController?.pushViewController(advisoryDetailViewController, animated: true)
+        }
+    }
 
 }
 
@@ -206,26 +238,53 @@ extension TripsTableViewController: UITableViewDragDelegate {
 extension TripsTableViewController: UIDropInteractionDelegate {
     
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
-        return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String])
+        guard let dropView = DropView(view: interaction.view) else { return false }
+        switch dropView {
+        case .navigationBar:
+            return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String])
+        case .tabBar:
+            return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String])
+        }
+        
     }
     
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
-        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String]) {
-            return UIDropProposal(operation: .copy)
+        guard let dropView = DropView(view: interaction.view) else { return UIDropProposal(operation: .forbidden) }
+        switch dropView {
+        case .navigationBar:
+            if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String]) {
+                return UIDropProposal(operation: .copy)
+            }
+        case .tabBar:
+            if session.hasItemsConforming(toTypeIdentifiers: [kUTTypeURL as String]) {
+                return UIDropProposal(operation: .copy)
+            }
         }
         
         return UIDropProposal(operation: .forbidden)
     }
     
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
-        session.loadObjects(ofClass: NSString.self) { [unowned self] (itemProviders) in
-            
-            // `NSItemProvider` allows both URLs and Strings to be cast to `NSString`
-            // So filtering out by looking for "http" kind of crude but working for now.
-            guard let itemProvider = itemProviders.flatMap({ $0 as? NSString }).filter({ !$0.contains("http") }).first,
-                  let trip = Trip(string: itemProvider as String) else { return }
-            self.showEdit(for: trip)
+        guard let dropView = DropView(view: interaction.view) else { return }
+        switch dropView {
+        case .navigationBar:
+            session.loadObjects(ofClass: NSString.self) { [unowned self] (itemProviders) in
+                // `NSItemProvider` allows both URLs and Strings to be cast to `NSString`
+                // So filtering out by looking for "http" kind of crude but working for now.
+                guard let itemProvider = itemProviders.flatMap({ $0 as? NSString }).filter({ !$0.contains("http") }).first,
+                    let trip = Trip(string: itemProvider as String) else { return }
+                self.showEdit(for: trip)
+            }
+        case .tabBar:
+            session.loadObjects(ofClass: NSURL.self) { [unowned self] (itemProviders) in
+                // `NSItemProvider` allows both URLs and Strings to be cast to `NSString`
+                // So filtering out by looking for "http" kind of crude but working for now.
+                guard let itemProvider = itemProviders.flatMap({ $0 as? NSURL }).first,
+                      let country = Country(shareURL: itemProvider as URL) else { return }
+                self.showAdvisory(for: country)
+            }
         }
+        
     }
 }
 

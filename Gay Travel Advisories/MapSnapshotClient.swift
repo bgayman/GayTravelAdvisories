@@ -51,12 +51,13 @@ struct MapSnapshotClient {
         geoCoder.geocodeAddressDictionary(dictionary) { (placemarks, _) in
             DispatchQueue.main.async {
                 guard let placemark = placemarks?.first,
-                      let coordinates = placemark.location?.coordinate else {
+                      let coordinates = placemark.location?.coordinate,
+                      let region = placemark.region as? CLCircularRegion else {
                     completion(nil)
                         
                         return
                 }
-                MapSnapshotClient.options.camera = MKMapCamera(lookingAtCenter: coordinates, fromDistance: 1_000_000, pitch: 0, heading: 0)
+                MapSnapshotClient.options.camera = MKMapCamera(lookingAtCenter: coordinates, fromDistance: region.radius * 6, pitch: 0, heading: 0)
                 let snapshotter = MKMapSnapshotter(options: MapSnapshotClient.options)
                 snapshotter.start { (snapshot, _) in
                     guard let image = snapshot?.image else {
