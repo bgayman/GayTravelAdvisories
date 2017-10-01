@@ -27,7 +27,8 @@ struct ImageClient {
         }
         
         // Check if on disk
-        if let cachedData = FileStorage.cache["\(url.hashValue)"] {
+        let cachedData = FileStorage.cache["\(url.hashValue)"]
+        if let cachedData = cachedData {
             let image = UIImage(data: cachedData)
             completion(image)
         }
@@ -38,11 +39,16 @@ struct ImageClient {
             DispatchQueue.main.async {
                 NetworkActivityIndicatorManager.shared.decrementIndicatorCount()
                 guard let data = data else {
-                    completion(nil)
+                    
+                    // Couldn't get an image but image was on disk so don't update
+                    if cachedData == nil {
+                        completion(nil)
+                    }
                     
                     return
                 }
                 let image = UIImage(data: data)
+                
                 completion(image)
                 ImageClient.imageCache[url] = image
                 FileStorage.cache["\(url.hashValue)"] = data
