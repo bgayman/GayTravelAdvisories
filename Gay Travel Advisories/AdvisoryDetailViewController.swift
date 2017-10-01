@@ -38,6 +38,7 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
         
         return actionBarButtonItem
     }()
+    private var isInitialLayout = true
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -68,7 +69,11 @@ class AdvisoryDetailViewController: UIViewController, ErrorHandleable {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableHeaderView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: view.bounds.height * headerHeightScaleFactor)
+        
+        if isInitialLayout {
+            isInitialLayout = false
+            tableHeaderView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: view.bounds.height * headerHeightScaleFactor)
+        }
     }
     
     // MARK: - Setup
